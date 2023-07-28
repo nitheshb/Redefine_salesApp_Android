@@ -182,6 +182,16 @@ class _CartScreenState extends State<CartScreen> {
                                                       .toString()) +
                                               1;
                                         });
+
+                                        cartList.add(pillarsList[index]);
+
+                                        setState(() {
+                                          totalAmount = cartList
+                                              .map((item) =>
+                                                  item['price'] * item['qty'])
+                                              .reduce((item1, item2) =>
+                                                  item1 + item2);
+                                        });
                                       },
                                       itemName:
                                           pillarsList[index]['item'].toString(),
@@ -224,6 +234,16 @@ class _CartScreenState extends State<CartScreen> {
                                                 beamsList[index]['qty']
                                                     .toString()) +
                                             1;
+                                      });
+
+                                      cartList.add(beamsList[index]);
+
+                                      setState(() {
+                                        totalAmount = cartList
+                                            .map((item) =>
+                                                item['price'] * item['qty'])
+                                            .reduce((item1, item2) =>
+                                                item1 + item2);
                                       });
                                     },
                                     itemName:
