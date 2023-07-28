@@ -172,26 +172,51 @@ class _CartScreenState extends State<CartScreen> {
                                                             ['qty']
                                                         .toString()) -
                                                     1;
+
+                                            totalAmount = cartList
+                                                .map((item) =>
+                                                    item['price'] * item['qty'])
+                                                .reduce((item1, item2) =>
+                                                    item1 + item2);
                                           });
                                         }
                                       },
                                       addTap: () {
-                                        setState(() {
-                                          pillarsList[index]['qty'] = int.parse(
-                                                  pillarsList[index]['qty']
-                                                      .toString()) +
-                                              1;
-                                        });
-
-                                        cartList.add(pillarsList[index]);
-
-                                        setState(() {
-                                          totalAmount = cartList
-                                              .map((item) =>
-                                                  item['price'] * item['qty'])
-                                              .reduce((item1, item2) =>
-                                                  item1 + item2);
-                                        });
+                                        if (cartList
+                                            .contains(pillarsList[index])) {
+                                          setState(() {
+                                            pillarsList[index]['qty'] =
+                                                int.parse(pillarsList[index]
+                                                            ['qty']
+                                                        .toString()) +
+                                                    1;
+                                          });
+                                          setState(() {
+                                            totalAmount = cartList
+                                                .map((item) =>
+                                                    item['price'] * item['qty'])
+                                                .reduce((item1, item2) =>
+                                                    item1 + item2);
+                                          });
+                                        }
+                                        if (!cartList
+                                            .contains(pillarsList[index])) {
+                                          cartList.add(pillarsList[index]);
+                                          setState(() {
+                                            pillarsList[index]['qty'] =
+                                                int.parse(pillarsList[index]
+                                                            ['qty']
+                                                        .toString()) +
+                                                    1;
+                                          });
+                                          setState(() {
+                                            totalAmount = cartList
+                                                .map((item) =>
+                                                    item['price'] * item['qty'])
+                                                .reduce((item1, item2) =>
+                                                    item1 + item2);
+                                          });
+                                        }
                                       },
                                       itemName:
                                           pillarsList[index]['item'].toString(),
@@ -225,26 +250,48 @@ class _CartScreenState extends State<CartScreen> {
                                                   beamsList[index]['qty']
                                                       .toString()) -
                                               1;
+
+                                          totalAmount = cartList
+                                              .map((item) =>
+                                                  item['price'] * item['qty'])
+                                              .reduce((item1, item2) =>
+                                                  item1 + item2);
                                         });
                                       }
                                     },
                                     addTap: () {
-                                      setState(() {
-                                        beamsList[index]['qty'] = int.parse(
-                                                beamsList[index]['qty']
-                                                    .toString()) +
-                                            1;
-                                      });
-
-                                      cartList.add(beamsList[index]);
-
-                                      setState(() {
-                                        totalAmount = cartList
-                                            .map((item) =>
-                                                item['price'] * item['qty'])
-                                            .reduce((item1, item2) =>
-                                                item1 + item2);
-                                      });
+                                      if (cartList.contains(beamsList[index])) {
+                                        setState(() {
+                                          beamsList[index]['qty'] = int.parse(
+                                                  beamsList[index]['qty']
+                                                      .toString()) +
+                                              1;
+                                        });
+                                        setState(() {
+                                          totalAmount = cartList
+                                              .map((item) =>
+                                                  item['price'] * item['qty'])
+                                              .reduce((item1, item2) =>
+                                                  item1 + item2);
+                                        });
+                                      }
+                                      if (!cartList
+                                          .contains(beamsList[index])) {
+                                        cartList.add(beamsList[index]);
+                                        setState(() {
+                                          beamsList[index]['qty'] = int.parse(
+                                                  beamsList[index]['qty']
+                                                      .toString()) +
+                                              1;
+                                        });
+                                        setState(() {
+                                          totalAmount = cartList
+                                              .map((item) =>
+                                                  item['price'] * item['qty'])
+                                              .reduce((item1, item2) =>
+                                                  item1 + item2);
+                                        });
+                                      }
                                     },
                                     itemName:
                                         beamsList[index]['item'].toString(),
@@ -278,36 +325,51 @@ class _CartScreenState extends State<CartScreen> {
                                                           ['qty']
                                                       .toString()) -
                                                   1;
+
+                                          totalAmount = cartList
+                                              .map((item) =>
+                                                  item['price'] * item['qty'])
+                                              .reduce((item1, item2) =>
+                                                  item1 + item2);
                                         });
                                       }
                                     },
                                     addTap: () {
-                                      setState(() {
-                                        componentsList[index]['qty'] =
-                                            int.parse(componentsList[index]
-                                                        ['qty']
-                                                    .toString()) +
-                                                1;
-                                      });
-
-                                      cartList.add(componentsList[index]);
-
-                                      setState(() {
-                                        totalAmount = cartList
-                                            .map((item) =>
-                                                item['price'] * item['qty'])
-                                            .reduce((item1, item2) =>
-                                                item1 + item2);
-                                      });
-
-                                      // totalAmount = cartList
-                                      //     .map((item) =>
-                                      //         int.parse(item.price) *
-                                      //         int.parse(item.qty))
-                                      //     .reduce(
-                                      //         (item1, item2) => item1 + item2);
-
-                                      log(cartList.toString());
+                                      if (cartList
+                                          .contains(componentsList[index])) {
+                                        setState(() {
+                                          componentsList[index]['qty'] =
+                                              int.parse(componentsList[index]
+                                                          ['qty']
+                                                      .toString()) +
+                                                  1;
+                                        });
+                                        setState(() {
+                                          totalAmount = cartList
+                                              .map((item) =>
+                                                  item['price'] * item['qty'])
+                                              .reduce((item1, item2) =>
+                                                  item1 + item2);
+                                        });
+                                      }
+                                      if (!cartList
+                                          .contains(componentsList[index])) {
+                                        cartList.add(componentsList[index]);
+                                        setState(() {
+                                          componentsList[index]['qty'] =
+                                              int.parse(componentsList[index]
+                                                          ['qty']
+                                                      .toString()) +
+                                                  1;
+                                        });
+                                        setState(() {
+                                          totalAmount = cartList
+                                              .map((item) =>
+                                                  item['price'] * item['qty'])
+                                              .reduce((item1, item2) =>
+                                                  item1 + item2);
+                                        });
+                                      }
                                     },
                                     itemName: componentsList[index]['item']
                                         .toString(),
