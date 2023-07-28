@@ -3,6 +3,7 @@ import 'package:redefine_sales_app/main.dart';
 
 import 'helpers/ProfilePage.dart';
 import 'helpers/theme.dart';
+import 'invoice/invoice_screen.dart';
 
 class startUpPage extends StatefulWidget {
   const startUpPage({Key? key}) : super(key: key);
@@ -15,9 +16,10 @@ class _startUpPageState extends State<startUpPage> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    MyHomePage(title: "ERP"),
-    ProfilePage(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const MyHomePage(title: "ERP"),
+    InvoiceScreen(),
+    const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -71,6 +73,10 @@ class _startUpPageState extends State<startUpPage> {
           BottomNavigationBarItem(
             label: 'Home',
             icon: Icon(Icons.home_rounded, size: 25),
+          ),
+          BottomNavigationBarItem(
+            label: 'Invoice',
+            icon: Icon(Icons.receipt, size: 25),
           ),
           BottomNavigationBarItem(
             label: 'Settings',

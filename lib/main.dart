@@ -168,38 +168,13 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       }
     }
   }
-  // void h() {
-  //   FutureBuilder<int>(
-  //       future: _mobile,
-  //       builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-  //         switch (snapshot.connectionState) {
-  //           case ConnectionState.waiting:
-  //             return const CircularProgressIndicator();
-  //           default:
-  //             if (snapshot.hasError) {
-  //               return Text('Error: ${snapshot.error}');
-  //             } else {
-  //               return Container();
-  //               print(
-  //                 'Button tapped ${snapshot.data} time${snapshot.data == 1 ? '' : 's'}.\n\n'
-  //                 'This should persist across restarts.',
-  //               );
-  //             }
-  //         }
-  //       });
-  // }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // floatingActionButton: FloatingActionButton(
-        //   // onPressed: _incrementCounter(),
-        //   tooltip: 'Increment',
-        //   child: const Icon(Icons.add),
-        // ),
         appBar: AppBar(
-            backgroundColor: Colors.teal[200], title: const Text("Sales App")),
+            backgroundColor: Color(0xFF0c039e), title: const Text("Sales App")),
         body: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -276,7 +251,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                                                   .toUpperCase(),
                                               style: TextStyle(
                                                   fontSize: 12,
-                                                  color: Colors.teal[200],
+                                                  color: Color(0xFF0c039e),
                                                   fontWeight: FontWeight.bold)),
                                           SizedBox(
                                             width: MediaQuery.of(context)
@@ -317,10 +292,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color:
-                                                      const Color(0xFF0dbb6b)),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Color(0xFF0c039e),
+                                              ),
                                               height: 30,
                                               width: 100,
                                               child: const Center(
