@@ -12,7 +12,7 @@ import '../helpers/card_screen.dart';
 import '../helpers/item_data.dart';
 
 class CartScreen extends StatefulWidget {
-  CartScreen({super.key, required this.userDetail});
+  const CartScreen({super.key, required this.userDetail});
 
   final QueryDocumentSnapshot<Map<String, dynamic>>? userDetail;
 
@@ -21,6 +21,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  final goalPillarText = TextEditingController();
+  final goalBeamText = TextEditingController();
   bool pillars = true;
 
   bool beams = false;
@@ -115,7 +117,7 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                                 selected: beams,
                                 disabledColor: Colors.grey[100],
-                                selectedColor: Color(0xFF0c039e),
+                                selectedColor: const Color(0xFF0c039e),
                                 onSelected: (value) {
                                   setState(() {
                                     beams = value;
@@ -137,7 +139,7 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                                 selected: components,
                                 disabledColor: Colors.grey[100],
-                                selectedColor: Color(0xFF0c039e),
+                                selectedColor: const Color(0xFF0c039e),
                                 onSelected: (value) {
                                   setState(() {
                                     beams = false;
@@ -163,10 +165,11 @@ class _CartScreenState extends State<CartScreen> {
                                 children: [
                                   ItemCard(
                                       removeTap: () {
-                                        if (int.parse(pillarsList[index]['qty']
-                                                .toString()) >
-                                            0) {
-                                          setState(() {
+                                        setState(() {
+                                          if (int.parse(pillarsList[index]
+                                                      ['qty']
+                                                  .toString()) >
+                                              0) {
                                             pillarsList[index]['qty'] =
                                                 int.parse(pillarsList[index]
                                                             ['qty']
@@ -178,8 +181,16 @@ class _CartScreenState extends State<CartScreen> {
                                                     item['price'] * item['qty'])
                                                 .reduce((item1, item2) =>
                                                     item1 + item2);
-                                          });
-                                        }
+
+                                            if (int.parse(pillarsList[index]
+                                                        ['qty']
+                                                    .toString()) ==
+                                                0) {
+                                              cartList.removeAt(index);
+                                              log(cartList.toString());
+                                            }
+                                          }
+                                        });
                                       },
                                       addTap: () {
                                         if (cartList
@@ -242,10 +253,10 @@ class _CartScreenState extends State<CartScreen> {
                               children: [
                                 ItemCard(
                                     removeTap: () {
-                                      if (int.parse(beamsList[index]['qty']
-                                              .toString()) >
-                                          0) {
-                                        setState(() {
+                                      setState(() {
+                                        if (int.parse(beamsList[index]['qty']
+                                                .toString()) >
+                                            0) {
                                           beamsList[index]['qty'] = int.parse(
                                                   beamsList[index]['qty']
                                                       .toString()) -
@@ -256,8 +267,15 @@ class _CartScreenState extends State<CartScreen> {
                                                   item['price'] * item['qty'])
                                               .reduce((item1, item2) =>
                                                   item1 + item2);
-                                        });
-                                      }
+
+                                          if (int.parse(beamsList[index]['qty']
+                                                  .toString()) ==
+                                              0) {
+                                            cartList.removeAt(index);
+                                            log(cartList.toString());
+                                          }
+                                        }
+                                      });
                                     },
                                     addTap: () {
                                       if (cartList.contains(beamsList[index])) {
@@ -316,10 +334,11 @@ class _CartScreenState extends State<CartScreen> {
                               children: [
                                 ItemCard(
                                     removeTap: () {
-                                      if (int.parse(componentsList[index]['qty']
-                                              .toString()) >
-                                          0) {
-                                        setState(() {
+                                      setState(() {
+                                        if (int.parse(componentsList[index]
+                                                    ['qty']
+                                                .toString()) >
+                                            0) {
                                           componentsList[index]['qty'] =
                                               int.parse(componentsList[index]
                                                           ['qty']
@@ -331,8 +350,16 @@ class _CartScreenState extends State<CartScreen> {
                                                   item['price'] * item['qty'])
                                               .reduce((item1, item2) =>
                                                   item1 + item2);
-                                        });
-                                      }
+
+                                          if (int.parse(componentsList[index]
+                                                      ['qty']
+                                                  .toString()) ==
+                                              0) {
+                                            cartList.removeAt(index);
+                                            log(cartList.toString());
+                                          }
+                                        }
+                                      });
                                     },
                                     addTap: () {
                                       if (cartList
@@ -389,7 +416,6 @@ class _CartScreenState extends State<CartScreen> {
                   )),
                 ),
               ),
-              // if (cartList.isNotEmpty)
               Container(
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.020,
@@ -410,10 +436,10 @@ class _CartScreenState extends State<CartScreen> {
                           Container(
                               width: MediaQuery.of(context).size.width * 0.70,
                               height: MediaQuery.of(context).size.height * 0.06,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   color: Color(0xFF0c039e),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10))),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
                               child: Center(
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -482,7 +508,7 @@ class _CartScreenState extends State<CartScreen> {
                                 },
                                 icon: Icon(
                                   Icons.download_for_offline,
-                                  color: Color(0xFF0c039e),
+                                  color: const Color(0xFF0c039e),
                                   size:
                                       MediaQuery.of(context).size.height * 0.05,
                                 )),
@@ -502,91 +528,21 @@ class _CartScreenState extends State<CartScreen> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.010,
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    const EdgeInsets.only(left: 5.0, top: 5.0),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                disabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                filled: true,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.020,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    const EdgeInsets.only(left: 5.0, top: 5.0),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                disabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                filled: true,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      if (goal == true) _goalWidget(),
+                      if (box == true) _boxWidget(),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.020,
                       ),
                       CardScreen(
-                        boxColor:
-                            box == true ? Color(0xFF0c039e) : Colors.white,
-                        contColor:
-                            cont == true ? Color(0xFF0c039e) : Colors.white,
-                        goalColor:
-                            goal == true ? Color(0xFF0c039e) : Colors.white,
+                        boxColor: box == true
+                            ? const Color(0xFF0c039e)
+                            : Colors.white,
+                        contColor: cont == true
+                            ? const Color(0xFF0c039e)
+                            : Colors.white,
+                        goalColor: goal == true
+                            ? const Color(0xFF0c039e)
+                            : Colors.white,
                         onBoxTap: () {
                           setState(() {
                             box = true;
@@ -620,6 +576,261 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _goalWidget() {
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            keyboardType: TextInputType.number,
+            controller: goalPillarText,
+            onChanged: (value) {
+              if (cartList.contains(pillarsList[0])) {
+                if (goalPillarText.text == '') {
+                  setState(() {
+                    pillarsList[0]['qty'] = 0;
+                  });
+                }
+                setState(() {
+                  pillarsList[0]['qty'] = 2 * int.parse(goalPillarText.text);
+                });
+                setState(() {
+                  totalAmount = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+
+              if (!cartList.contains(pillarsList[0])) {
+                cartList.add(pillarsList[0]);
+                setState(() {
+                  pillarsList[0]['qty'] = 2 * int.parse(goalPillarText.text);
+                });
+                setState(() {
+                  totalAmount = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+            },
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.only(left: 5.0, top: 5.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              filled: true,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.020,
+        ),
+        Expanded(
+          child: TextFormField(
+            controller: goalBeamText,
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              if (cartList.contains(beamsList[0])) {
+                if (goalBeamText.text == '') {
+                  setState(() {
+                    beamsList[0]['qty'] = 0;
+                  });
+                }
+                setState(() {
+                  beamsList[0]['qty'] = int.parse(goalBeamText.text);
+                });
+                setState(() {
+                  totalAmount = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+
+              if (!cartList.contains(beamsList[0])) {
+                cartList.add(beamsList[0]);
+                setState(() {
+                  beamsList[0]['qty'] = int.parse(goalBeamText.text);
+                });
+                setState(() {
+                  totalAmount = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+            },
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.only(left: 5.0, top: 5.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              filled: true,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _boxWidget() {
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: goalPillarText,
+            onChanged: (value) {
+              if (cartList.contains(pillarsList[0])) {
+                if (goalPillarText.text == '') {
+                  setState(() {
+                    pillarsList[0]['qty'] = 0;
+                  });
+                }
+                setState(() {
+                  pillarsList[0]['qty'] = int.parse(goalPillarText.text);
+                });
+                setState(() {
+                  totalAmount = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+
+              if (!cartList.contains(pillarsList[0])) {
+                cartList.add(pillarsList[0]);
+                setState(() {
+                  pillarsList[0]['qty'] = int.parse(goalPillarText.text);
+                });
+                setState(() {
+                  totalAmount = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+            },
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.only(left: 5.0, top: 5.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              filled: true,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.020,
+        ),
+        Expanded(
+          child: TextFormField(
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.only(left: 5.0, top: 5.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              filled: true,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.020,
+        ),
+        Expanded(
+          child: TextFormField(
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.only(left: 5.0, top: 5.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              filled: true,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
