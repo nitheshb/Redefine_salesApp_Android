@@ -58,7 +58,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                   height: MediaQuery.of(context).size.height * 0.010,
                 ),
                 Text(
-                  "Custmoress",
+                  "Customers",
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.height * 0.030,
                       color: Colors.black,
