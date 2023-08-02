@@ -210,7 +210,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                             ),
                             SizedBox(
                               height:
-                                  MediaQuery.of(context).size.height * 0.020,
+                                  MediaQuery.of(context).size.height * 0.010,
                             )
                           ],
                         );

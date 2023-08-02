@@ -206,15 +206,9 @@ class _CartScreenState extends State<CartScreen> {
                         height: MediaQuery.of(context).size.height * 0.020,
                       ),
                       CardScreen(
-                        boxColor: box == true
-                            ? const Color(0xFF0c039e)
-                            : Colors.white,
-                        contColor: cont == true
-                            ? const Color(0xFF0c039e)
-                            : Colors.white,
-                        goalColor: goal == true
-                            ? const Color(0xFF0c039e)
-                            : Colors.white,
+                        boxColor: Colors.white,
+                        contColor: Colors.white,
+                        goalColor: Colors.white,
                         onBoxTap: () {
                           setState(() {
                             box = true;
@@ -410,7 +404,7 @@ class _CartScreenState extends State<CartScreen> {
                             boxList['pillarList']?[index]['size'].toString() ??
                                 ''),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.030,
+                      height: MediaQuery.of(context).size.height * 0.014,
                     )
                   ],
                 );
@@ -491,7 +485,7 @@ class _CartScreenState extends State<CartScreen> {
                       size: boxList['beamsList']?[index]['size'].toString() ??
                           ""),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.030,
+                    height: MediaQuery.of(context).size.height * 0.014,
                   )
                 ],
               );
@@ -579,7 +573,7 @@ class _CartScreenState extends State<CartScreen> {
                               .toString() ??
                           ''),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.030,
+                    height: MediaQuery.of(context).size.height * 0.014,
                   )
                 ],
               );
@@ -749,7 +743,7 @@ class _CartScreenState extends State<CartScreen> {
                             golaList['pillarList']?[index]['size'].toString() ??
                                 ''),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.030,
+                      height: MediaQuery.of(context).size.height * 0.014,
                     )
                   ],
                 );
@@ -830,7 +824,7 @@ class _CartScreenState extends State<CartScreen> {
                       size: golaList['beamsList']?[index]['size'].toString() ??
                           ""),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.030,
+                    height: MediaQuery.of(context).size.height * 0.014,
                   )
                 ],
               );
@@ -919,7 +913,7 @@ class _CartScreenState extends State<CartScreen> {
                               .toString() ??
                           ''),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.030,
+                    height: MediaQuery.of(context).size.height * 0.014,
                   )
                 ],
               );
