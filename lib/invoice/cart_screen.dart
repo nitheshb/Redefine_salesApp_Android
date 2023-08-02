@@ -358,7 +358,7 @@ myGoalList= boxList;
                                     ]);
 
                                 final pdfFile =
-                                    await PdfInvoiceApi.generate(invoice);
+                                    await PdfInvoiceApi.generate(invoice , '');
                                 PdfApi.openFile(pdfFile);
                               },
                               icon: Icon(
