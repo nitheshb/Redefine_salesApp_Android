@@ -3,11 +3,14 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:redefine_sales_app/helpers/item_card.dart';
 import 'package:redefine_sales_app/model/invoice_model.dart';
 import 'package:redefine_sales_app/pdf/pdf_api.dart';
 import 'package:redefine_sales_app/pdf/pdf_invoice_Api.dart';
+import 'dart:io';
 
+import 'package:path_provider/path_provider.dart';
 import '../helpers/card_screen.dart';
 import '../helpers/item_data.dart';
 
@@ -39,6 +42,7 @@ class _CartScreenState extends State<CartScreen> {
 
   bool components = false;
   final cartList = [];
+  var saveInvoice;
 
   final List<String> itemList = ["Pillars", "Beams", "Components"];
 
@@ -76,7 +80,20 @@ class _CartScreenState extends State<CartScreen> {
                             "Back",
                             style:
                                 GoogleFonts.inter(fontWeight: FontWeight.w600),
-                          )
+                          ),
+                          Spacer(),
+                          InkWell(
+                            onTap: () {
+                              _showModalBottomSheet(context, saveInvoice,
+                                  widget.userDetail?['Name'] ?? "");
+                              log(saveInvoice.toString());
+                            },
+                            child: Text(
+                              "Saved Bills",
+                              style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -106,7 +123,7 @@ class _CartScreenState extends State<CartScreen> {
                         children: [
                           const Spacer(),
                           Container(
-                              width: MediaQuery.of(context).size.width * 0.70,
+                              width: MediaQuery.of(context).size.width * 0.50,
                               height: MediaQuery.of(context).size.height * 0.06,
                               decoration: const BoxDecoration(
                                   color: Color(0xFF0c039e),
@@ -174,8 +191,9 @@ class _CartScreenState extends State<CartScreen> {
                                           )
                                       ]);
 
-                                  final pdfFile =
-                                      await PdfInvoiceApi.generate(invoice);
+                                  final pdfFile = await PdfInvoiceApi.generate(
+                                      invoice,
+                                      widget.userDetail?['Name'] ?? "");
                                   PdfApi.openFile(pdfFile);
                                 },
                                 icon: Icon(
@@ -184,6 +202,50 @@ class _CartScreenState extends State<CartScreen> {
                                   size:
                                       MediaQuery.of(context).size.height * 0.05,
                                 )),
+                          ),
+                          Spacer(),
+                          InkWell(
+                            onTap: () {
+                              final dueDate =
+                                  DateTime.now().add(const Duration(days: 7));
+                              final invoice = Invoice(
+                                  info: InvoiceInfo(
+                                      description: "description",
+                                      date: DateTime.now(),
+                                      dueDate: dueDate,
+                                      number: "9650903368"),
+                                  supplier: const Supplier(
+                                      address: "H-91, Old Seemapuri, Delhi -95",
+                                      mobile: "9319935674",
+                                      name: "Satyam"),
+                                  customer: Customer(
+                                      address:
+                                          widget.userDetail?['Project'] ?? "",
+                                      mobile:
+                                          widget.userDetail?['Mobile'] ?? "",
+                                      name: widget.userDetail?['Name'] ?? ""),
+                                  items: [
+                                    for (int i = 0; i < cartList.length; i++)
+                                      InvoiceItem(
+                                        date: DateTime.parse("2023-02-27"),
+                                        name: cartList[i]['item'],
+                                        description: "description",
+                                        price: cartList[i]['price'].toString(),
+                                        qty: cartList[i]['qty'].toString(),
+                                      )
+                                  ]);
+
+                              saveInvoice = invoice;
+                              log(saveInvoice.toString());
+                            },
+                            child: Text(
+                              "Save",
+                              style: GoogleFonts.inter(
+                                  color: const Color(0xFF0c039e),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.020),
+                            ),
                           )
                         ],
                       ),
@@ -341,11 +403,11 @@ class _CartScreenState extends State<CartScreen> {
                                           '0') -
                                   1;
 
-                              // totalAmount = cartList
-                              //     .map((item) =>
-                              //         item['price'] * item['qty'])
-                              //     .reduce((item1, item2) =>
-                              //         item1 + item2);
+                              setState(() {
+                                totalAmount = cartList
+                                    .map((item) => item['price'] * item['qty'])
+                                    .reduce((item1, item2) => item1 + item2);
+                              });
 
                               if (int.parse(boxList['pillarList']?[index]['qty']
                                           .toString() ??
@@ -367,13 +429,11 @@ class _CartScreenState extends State<CartScreen> {
                                           '0') +
                                   1;
                             });
-                            // setState(() {
-                            //   totalAmount = cartList
-                            //       .map((item) =>
-                            //           item['price'] * item['qty'])
-                            //       .reduce((item1, item2) =>
-                            //           item1 + item2);
-                            // });
+                            setState(() {
+                              totalAmount = cartList
+                                  .map((item) => item['price'] * item['qty'])
+                                  .reduce((item1, item2) => item1 + item2);
+                            });
                           }
                           if (!cartList
                               .contains(boxList['pillarList']?[index])) {
@@ -385,13 +445,11 @@ class _CartScreenState extends State<CartScreen> {
                                           '0') +
                                   1;
                             });
-                            // setState(() {
-                            //   totalAmount = cartList
-                            //       .map((item) =>
-                            //           item['price'] * item['qty'])
-                            //       .reduce((item1, item2) =>
-                            //           item1 + item2);
-                            // });
+                            setState(() {
+                              totalAmount = cartList
+                                  .map((item) => item['price'] * item['qty'])
+                                  .reduce((item1, item2) => item1 + item2);
+                            });
                           }
                         },
                         itemName:
@@ -679,11 +737,11 @@ class _CartScreenState extends State<CartScreen> {
                                           '0') -
                                   1;
 
-                              // totalAmount = cartList
-                              //     .map((item) =>
-                              //         item['price'] * item['qty'])
-                              //     .reduce((item1, item2) =>
-                              //         item1 + item2);
+                              setState(() {
+                                totalAmount = cartList
+                                    .map((item) => item['price'] * item['qty'])
+                                    .reduce((item1, item2) => item1 + item2);
+                              });
 
                               if (int.parse(golaList['pillarList']?[index]
                                               ['qty']
@@ -706,13 +764,11 @@ class _CartScreenState extends State<CartScreen> {
                                           '0') +
                                   1;
                             });
-                            // setState(() {
-                            //   totalAmount = cartList
-                            //       .map((item) =>
-                            //           item['price'] * item['qty'])
-                            //       .reduce((item1, item2) =>
-                            //           item1 + item2);
-                            // });
+                            setState(() {
+                              totalAmount = cartList
+                                  .map((item) => item['price'] * item['qty'])
+                                  .reduce((item1, item2) => item1 + item2);
+                            });
                           }
                           if (!cartList
                               .contains(golaList['pillarList']?[index])) {
@@ -724,13 +780,11 @@ class _CartScreenState extends State<CartScreen> {
                                           '0') +
                                   1;
                             });
-                            // setState(() {
-                            //   totalAmount = cartList
-                            //       .map((item) =>
-                            //           item['price'] * item['qty'])
-                            //       .reduce((item1, item2) =>
-                            //           item1 + item2);
-                            // });
+                            setState(() {
+                              totalAmount = cartList
+                                  .map((item) => item['price'] * item['qty'])
+                                  .reduce((item1, item2) => item1 + item2);
+                            });
                           }
                         },
                         itemName:
@@ -921,6 +975,84 @@ class _CartScreenState extends State<CartScreen> {
           ),
       ],
     );
+  }
+
+  void _showModalBottomSheet(BuildContext context, invoice, name) async {
+    await showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(9.0))),
+        backgroundColor: Colors.white,
+        context: context,
+        isScrollControlled: true,
+        builder: (context) {
+          // Future<File> saveDocuments({
+          //   required String name,
+          //   required pw.Document pdf,
+          // }) async {
+          //   final bytes = await pdf.save();
+          //   final dir = await getApplicationSupportDirectory();
+          //   final file = File('${dir.path}/$name');
+
+          //   await file.writeAsBytes(bytes);
+          //   return file;
+          // }
+
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                left: 14.0,
+                right: 14.0,
+                top: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Saved Bills",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: MediaQuery.of(context).size.height * 0.03),
+                    ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.black,
+                      ),
+                    )
+                  ],
+                ),
+                Divider(
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.030,
+                ),
+                Divider(
+                  color: Colors.black,
+                ),
+                InkWell(
+                    onTap: () async {
+                      final pdfFile =
+                          await PdfInvoiceApi.generate(invoice, name);
+                      PdfApi.openFile(pdfFile);
+                    },
+                    child: Text("See Your Invoice")),
+                Divider(
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.090,
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   Widget _goalWidget() {

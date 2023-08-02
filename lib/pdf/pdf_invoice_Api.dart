@@ -9,7 +9,7 @@ import 'package:pdf/widgets.dart';
 import 'package:redefine_sales_app/pdf/pdf_api.dart';
 
 class PdfInvoiceApi {
-  static Future<File> generate(Invoice invoice) async {
+  static Future<File> generate(Invoice invoice, String pdf_name) async {
     final pdf = Document();
 
     final imageByteData =
@@ -35,7 +35,7 @@ class PdfInvoiceApi {
       // footer: (context) => buildFooter(invoice),
     ));
 
-    return PdfApi.saveDocuments(name: 'my_invoice.pdf', pdf: pdf);
+    return PdfApi.saveDocuments(name: '${pdf_name}.pdf', pdf: pdf);
   }
 
   static Widget buidFinalBill() {

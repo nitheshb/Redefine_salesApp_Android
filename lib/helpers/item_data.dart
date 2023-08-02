@@ -178,67 +178,67 @@ final boxList = {
       "item": "Aluminium Truss 10 Feet",
       "size": "400*400",
       "qty": 0,
-      "price": 100
+      "price": 31000
     },
     {
       "item": "Aluminium Truss 6 Feet",
       "size": "400*400",
       "qty": 0,
-      "price": 100
+      "price": 18900
     },
     {
       "item": "Aluminium Truss 5 Feet",
       "size": "400*400",
       "qty": 0,
-      "price": 100
+      "price": 12000
     },
     {
       "item": "Aluminium Truss 4 Feet",
       "size": "400*400",
       "qty": 0,
-      "price": 100
+      "price": 13600
     },
     {
       "item": "Aluminium Truss 2 Feet",
       "size": "400*400",
       "qty": 0,
-      "price": 100
+      "price": 6800
     },
     {
       "item": "Aluminium Truss 12 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 42000
     },
     {
       "item": "Aluminium Truss 10 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 35000
     },
     {
       "item": "Aluminium Truss 6 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 17500
     },
     {
       "item": "Aluminium Truss 5 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 21000
     },
     {
       "item": "Aluminium Truss 4 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 16000
     },
     {
       "item": "Aluminium Truss 2 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 9000
     },
   ],
   'beamsList': [
@@ -246,67 +246,67 @@ final boxList = {
       "item": "Aluminium Truss 10 Feet",
       "size": "400*400",
       "qty": 0,
-      "price": 100
+      "price": 31000
     },
     {
       "item": "Aluminium Truss 6 Feet",
       "size": "400*400",
       "qty": 0,
-      "price": 100
+      "price": 18900
     },
     {
       "item": "Aluminium Truss 5 Feet",
       "size": "400*400",
       "qty": 0,
-      "price": 100
+      "price": 12000
     },
     {
       "item": "Aluminium Truss 4 Feet",
       "size": "400*400",
       "qty": 0,
-      "price": 100
+      "price": 13600
     },
     {
       "item": "Aluminium Truss 2 Feet",
       "size": "400*400",
       "qty": 0,
-      "price": 100
+      "price": 6800
     },
     {
       "item": "Aluminium Truss 12 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 42000
     },
     {
       "item": "Aluminium Truss 10 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 35000
     },
     {
       "item": "Aluminium Truss 6 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 17500
     },
     {
       "item": "Aluminium Truss 5 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 21000
     },
     {
       "item": "Aluminium Truss 4 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 16000
     },
     {
       "item": "Aluminium Truss 2 Feet",
       "size": "650*550",
       "qty": 0,
-      "price": 100
+      "price": 9000
     },
   ],
   'componentsList': [
