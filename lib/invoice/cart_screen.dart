@@ -36,22 +36,32 @@ class _CartScreenState extends State<CartScreen> {
   bool cont = false;
   bool german = false;
 
-  int totalAmount = 0;
   int pillarTotalCost = 0;
+  int boxBeamTotalCost = 0;
+  int boxPillarTotalCost = 0;
   int beamTotalCost = 0;
   int componentsCost = 0;
+  int totalAmount = 0;
 
   bool components = false;
   final cartList = [];
-  var myGoalList= boxList;
-  
-  var pillarVariant  = "400_400";
+
+  var myGoalList = golaList;
+
+  var myBoxList = boxList;
+
+  var pillarVariant = "400_400";
   var pillarPriceList;
-    var beamsVariant  = "550_650";
+  var beamsVariant = "550_650";
   var beamsPriceList;
 
   final List<String> itemList = ["Pillars", "Beams", "Components"];
-    final List<String> itemType = ["Box Truss","Goal Truss",  "Scafolding", 'German Tent'];
+  final List<String> itemType = [
+    "Box Truss",
+    "Goal Truss",
+    "Scafolding",
+    'German Tent'
+  ];
   emptyBoxPillar() {
     for (var i = 0; i < myGoalList['pillarList']!.length; i++) {
       myGoalList['pillarList']?[i]['qty'] = 0;
@@ -75,43 +85,42 @@ class _CartScreenState extends State<CartScreen> {
       myGoalList['beamsList']?[i]['qty'] = 0;
     }
   }
+
   @override
   void initState() {
     super.initState();
-    myGoalList= boxList;
+    myGoalList = myBoxList;
 
-if(pillarVariant == "400_400"){
-  pillarPriceList = variant_400_400;
-}else if(pillarVariant == "380_380"){
-  pillarPriceList = variant_380_380;
-}else if(pillarVariant == "350_350"){
-  pillarPriceList = variant_350_350;
-}
+    if (pillarVariant == "400_400") {
+      pillarPriceList = variant_400_400;
+    } else if (pillarVariant == "380_380") {
+      pillarPriceList = variant_380_380;
+    } else if (pillarVariant == "350_350") {
+      pillarPriceList = variant_350_350;
+    }
 
-
-
-if(beamsVariant == "550_650"){
-  beamsPriceList = variant_550_650;
-}
-   emptyBoxPillar();
-   emptyBoxBeam();
-     emptyGoalPillar();
-       emptyGoalBeam();
- 
+    if (beamsVariant == "550_650") {
+      beamsPriceList = variant_550_650;
+    }
+    emptyBoxPillar();
+    emptyBoxBeam();
+    emptyGoalPillar();
+    emptyGoalBeam();
   }
- @override
+
+  @override
   void dispose() {
-    
-myGoalList= boxList;
+    myGoalList = myBoxList;
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         // resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xFFF0F3F6).withOpacity(1),
-        
+
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -157,117 +166,116 @@ myGoalList= boxList;
                     // vertical: MediaQuery.of(context).size.height * 0.020,
                     horizontal: MediaQuery.of(context).size.width * 0.020),
                 height: 330,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                     color: Colors.white,
                     // backgroundColor: Colors.red,
-                
-                      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(10),
-        topLeft: Radius.circular(10),
-      ),
+
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      topLeft: Radius.circular(10),
+                    ),
                     boxShadow: [
                       BoxShadow(blurRadius: 2, color: Colors.blueGrey)
                     ]),
                 child: ListView(children: [
-                   SizedBox(
-            height: MediaQuery.of(context).size.height * 0.090,
-            width: double.infinity,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                ChoiceChip(
-                  label: Text(
-                    itemType[0],
-                    style: TextStyle(
-                        color: box == true ? Colors.white : Colors.black),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.090,
+                    width: double.infinity,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        ChoiceChip(
+                          label: Text(
+                            itemType[0],
+                            style: TextStyle(
+                                color:
+                                    box == true ? Colors.white : Colors.black),
+                          ),
+                          selected: box,
+                          disabledColor: Colors.grey[100],
+                          selectedColor: const Color(0xFF0c039e),
+                          onSelected: (value) {
+                            setState(() {
+                              box = true;
+                              cont = false;
+                              goal = false;
+                              german = false;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.02,
+                        ),
+                        ChoiceChip(
+                          label: Text(
+                            itemType[1],
+                            style: TextStyle(
+                                color:
+                                    goal == true ? Colors.white : Colors.black),
+                          ),
+                          selected: goal,
+                          disabledColor: Colors.grey[100],
+                          selectedColor: const Color(0xFF0c039e),
+                          onSelected: (value) {
+                            setState(() {
+                              box = false;
+                              goal = true;
+                              cont = false;
+                              german = false;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.02,
+                        ),
+                        ChoiceChip(
+                          label: Text(
+                            itemType[2],
+                            style: TextStyle(
+                                color:
+                                    cont == true ? Colors.white : Colors.black),
+                          ),
+                          selected: cont,
+                          disabledColor: Colors.grey[100],
+                          selectedColor: const Color(0xFF0c039e),
+                          onSelected: (value) {
+                            setState(() {
+                              box = false;
+                              cont = true;
+                              goal = false;
+                              german = false;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.02,
+                        ),
+                        ChoiceChip(
+                          label: Text(
+                            itemType[3],
+                            style: TextStyle(
+                                color: cont == german
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
+                          selected: german,
+                          disabledColor: Colors.grey[100],
+                          selectedColor: const Color(0xFF0c039e),
+                          onSelected: (value) {
+                            setState(() {
+                              box = false;
+                              cont = false;
+                              goal = false;
+                              german = true;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                  selected: box,
-                  disabledColor: Colors.grey[100],
-                  selectedColor: const Color(0xFF0c039e),
-                  onSelected: (value) {
-                     setState(() {
-                            box = true;
-                            cont = false;
-                            goal = false;
-                            german= false;
-
-                          });
-                  },
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.02,
-                ),
-                ChoiceChip(
-                  label: Text(
-                    itemType[1],
-                    style: TextStyle(
-                        color: goal == true ? Colors.white : Colors.black),
-                  ),
-                  selected: goal,
-                  disabledColor: Colors.grey[100],
-                  selectedColor: const Color(0xFF0c039e),
-                  onSelected: (value) {
-                      setState(() {
-                            box = false;
-                            goal = true;
-                            cont = false;
-                            german= false;
-                          });
-                  },
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.02,
-                ),
-                ChoiceChip(
-                  label: Text(
-                    itemType[2],
-                    style: TextStyle(
-                        color:
-                            cont == true ? Colors.white : Colors.black),
-                  ),
-                  selected: cont,
-                  disabledColor: Colors.grey[100],
-                  selectedColor: const Color(0xFF0c039e),
-                  onSelected: (value) {
-                    setState(() {
-                            box = false;
-                            cont = true;
-                            goal = false;
-                            german= false;
-
-                          });
-                  },
-                ), SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.02,
-                ),
-                ChoiceChip(
-                  label: Text(
-                    itemType[3],
-                    style: TextStyle(
-                        color:
-                            cont == german ? Colors.white : Colors.black),
-                  ),
-                  selected: german,
-                  disabledColor: Colors.grey[100],
-                  selectedColor: const Color(0xFF0c039e),
-                  onSelected: (value) {
-                    setState(() {
-                            box = false;
-                            cont = false;
-                            goal = false;
-                            german= true;
-
-                          });
-                  },
-                ),
-              ],
-            ),
-          ),
-       
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                              
                       Text(
                         "Dimensions",
                         style: GoogleFonts.inter(
@@ -283,12 +291,9 @@ myGoalList= boxList;
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.020,
                       ),
-                Row(
-                         mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          
-                     
                           Container(
                               width: MediaQuery.of(context).size.width * 0.70,
                               height: MediaQuery.of(context).size.height * 0.06,
@@ -310,7 +315,7 @@ myGoalList= boxList;
                                           0.030,
                                     ),
                                     Text(
-                                      "₹$totalAmount ",
+                                      "₹${pillarTotalCost + beamTotalCost + boxPillarTotalCost} ",
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
@@ -321,8 +326,12 @@ myGoalList= boxList;
                           const Spacer(),
                           IconButton(
                               onPressed: () async {
-                                final dueDate = DateTime.now()
-                                    .add(const Duration(days: 7));
+                                cartList.removeWhere(
+                                    (element) => element['qty'] == 0);
+
+                                log(cartList.toList().toString());
+                                final dueDate =
+                                    DateTime.now().add(const Duration(days: 7));
                                 final invoice = Invoice(
                                     info: InvoiceInfo(
                                         description: "description",
@@ -336,17 +345,12 @@ myGoalList= boxList;
                                         name: "Satyam"),
                                     customer: Customer(
                                         address:
-                                            widget.userDetail?['Project'] ??
-                                                "",
+                                            widget.userDetail?['Project'] ?? "",
                                         mobile:
-                                            widget.userDetail?['Mobile'] ??
-                                                "",
-                                        name:
-                                            widget.userDetail?['Name'] ?? ""),
+                                            widget.userDetail?['Mobile'] ?? "",
+                                        name: widget.userDetail?['Name'] ?? ""),
                                     items: [
-                                      for (int i = 0;
-                                          i < cartList.length;
-                                          i++)
+                                      for (int i = 0; i < cartList.length; i++)
                                         InvoiceItem(
                                           date: DateTime.parse("2023-02-27"),
                                           name: cartList[i]['item'],
@@ -358,18 +362,16 @@ myGoalList= boxList;
                                     ]);
 
                                 final pdfFile =
-                                    await PdfInvoiceApi.generate(invoice , '');
+                                    await PdfInvoiceApi.generate(invoice, '');
                                 PdfApi.openFile(pdfFile);
                               },
                               icon: Icon(
                                 Icons.download_for_offline,
                                 color: const Color(0xFF0c039e),
-                                size:
-                                    MediaQuery.of(context).size.height * 0.05,
+                                size: MediaQuery.of(context).size.height * 0.05,
                               ))
                         ],
                       ),
-                    
                     ],
                   ),
                 ]),
@@ -458,7 +460,7 @@ myGoalList= boxList;
         if (cont != true)
           if (pillars == true)
             ListView.builder(
-              itemCount: boxList['pillarList']?.length,
+              itemCount: myBoxList['pillarList']?.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
@@ -467,15 +469,16 @@ myGoalList= boxList;
                     ItemCard(
                         removeTap: () {
                           setState(() {
-                            if (int.parse(boxList['pillarList']?[index]['qty']
+                            if (int.parse(myBoxList['pillarList']?[index]['qty']
                                         .toString() ??
                                     '0') >
                                 0) {
-                              boxList['pillarList']?[index]['qty'] = int.parse(
-                                      boxList['pillarList']?[index]['qty']
+                              myBoxList['pillarList']?[index]['qty'] =
+                                  int.parse(myBoxList['pillarList']?[index]
+                                                  ['qty']
                                               .toString() ??
                                           '0') -
-                                  1;
+                                      1;
 
                               // totalAmount = cartList
                               //     .map((item) =>
@@ -483,7 +486,8 @@ myGoalList= boxList;
                               //     .reduce((item1, item2) =>
                               //         item1 + item2);
 
-                              if (int.parse(boxList['pillarList']?[index]['qty']
+                              if (int.parse(myBoxList['pillarList']?[index]
+                                              ['qty']
                                           .toString() ??
                                       '0') ==
                                   0) {
@@ -495,13 +499,14 @@ myGoalList= boxList;
                         },
                         addTap: () {
                           if (cartList
-                              .contains(boxList['pillarList']?[index])) {
+                              .contains(myBoxList['pillarList']?[index])) {
                             setState(() {
-                              boxList['pillarList']?[index]['qty'] = int.parse(
-                                      boxList['pillarList']?[index]['qty']
+                              myBoxList['pillarList']?[index]['qty'] =
+                                  int.parse(myBoxList['pillarList']?[index]
+                                                  ['qty']
                                               .toString() ??
                                           '0') +
-                                  1;
+                                      1;
                             });
                             // setState(() {
                             //   totalAmount = cartList
@@ -512,14 +517,15 @@ myGoalList= boxList;
                             // });
                           }
                           if (!cartList
-                              .contains(boxList['pillarList']?[index])) {
-                            cartList.add(boxList['pillarList']?[index]);
+                              .contains(myBoxList['pillarList']?[index])) {
+                            cartList.add(myBoxList['pillarList']?[index]);
                             setState(() {
-                              boxList['pillarList']?[index]['qty'] = int.parse(
-                                      boxList['pillarList']?[index]['qty']
+                              myBoxList['pillarList']?[index]['qty'] =
+                                  int.parse(myBoxList['pillarList']?[index]
+                                                  ['qty']
                                               .toString() ??
                                           '0') +
-                                  1;
+                                      1;
                             });
                             // setState(() {
                             //   totalAmount = cartList
@@ -530,15 +536,15 @@ myGoalList= boxList;
                             // });
                           }
                         },
-                        itemName:
-                            boxList['pillarList']?[index]['item'].toString() ??
-                                '',
+                        itemName: myBoxList['pillarList']?[index]['item']
+                                .toString() ??
+                            '',
                         qty: int.parse(
-                            boxList['pillarList']?[index]['qty'].toString() ??
+                            myBoxList['pillarList']?[index]['qty'].toString() ??
                                 '0'),
-                        size:
-                            boxList['pillarList']?[index]['size'].toString() ??
-                                ''),
+                        size: myBoxList['pillarList']?[index]['size']
+                                .toString() ??
+                            ''),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.014,
                     )
@@ -548,7 +554,7 @@ myGoalList= boxList;
             ),
         if (beams == true)
           ListView.builder(
-            itemCount: boxList['beamsList']?.length,
+            itemCount: myBoxList['beamsList']?.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
@@ -557,12 +563,12 @@ myGoalList= boxList;
                   ItemCard(
                       removeTap: () {
                         setState(() {
-                          if (int.parse(boxList['beamsList']?[index]['qty']
+                          if (int.parse(myBoxList['beamsList']?[index]['qty']
                                       .toString() ??
                                   '0') >
                               0) {
-                            boxList['beamsList']?[index]['qty'] = int.parse(
-                                    boxList['beamsList']?[index]['qty']
+                            myBoxList['beamsList']?[index]['qty'] = int.parse(
+                                    myBoxList['beamsList']?[index]['qty']
                                             .toString() ??
                                         '0') -
                                 1;
@@ -571,7 +577,7 @@ myGoalList= boxList;
                                 .map((item) => item['price'] * item['qty'])
                                 .reduce((item1, item2) => item1 + item2);
 
-                            if (int.parse(boxList['beamsList']?[index]['qty']
+                            if (int.parse(myBoxList['beamsList']?[index]['qty']
                                         .toString() ??
                                     '0') ==
                                 0) {
@@ -582,10 +588,10 @@ myGoalList= boxList;
                         });
                       },
                       addTap: () {
-                        if (cartList.contains(boxList['beamsList']?[index])) {
+                        if (cartList.contains(myBoxList['beamsList']?[index])) {
                           setState(() {
-                            boxList['beamsList']?[index]['qty'] = int.parse(
-                                    boxList['beamsList']?[index]['qty']
+                            myBoxList['beamsList']?[index]['qty'] = int.parse(
+                                    myBoxList['beamsList']?[index]['qty']
                                             .toString() ??
                                         '0') +
                                 1;
@@ -596,11 +602,12 @@ myGoalList= boxList;
                                 .reduce((item1, item2) => item1 + item2);
                           });
                         }
-                        if (!cartList.contains(boxList['beamsList']?[index])) {
-                          cartList.add(boxList['beamsList']?[index]);
+                        if (!cartList
+                            .contains(myBoxList['beamsList']?[index])) {
+                          cartList.add(myBoxList['beamsList']?[index]);
                           setState(() {
-                            boxList['beamsList']?[index]['qty'] = int.parse(
-                                    boxList['beamsList']?[index]['qty']
+                            myBoxList['beamsList']?[index]['qty'] = int.parse(
+                                    myBoxList['beamsList']?[index]['qty']
                                             .toString() ??
                                         "0") +
                                 1;
@@ -613,12 +620,12 @@ myGoalList= boxList;
                         }
                       },
                       itemName:
-                          boxList['beamsList']?[index]['item'].toString() ??
+                          myBoxList['beamsList']?[index]['item'].toString() ??
                               " ",
                       qty: int.parse(
-                          boxList['beamsList']?[index]['qty'].toString() ??
+                          myBoxList['beamsList']?[index]['qty'].toString() ??
                               '0'),
-                      size: boxList['beamsList']?[index]['size'].toString() ??
+                      size: myBoxList['beamsList']?[index]['size'].toString() ??
                           ""),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.014,
@@ -629,7 +636,7 @@ myGoalList= boxList;
           ),
         if (components == true)
           ListView.builder(
-            itemCount: boxList['componentsList']?.length,
+            itemCount: myBoxList['componentsList']?.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
@@ -638,12 +645,13 @@ myGoalList= boxList;
                   ItemCard(
                       removeTap: () {
                         setState(() {
-                          if (int.parse(boxList['componentsList']?[index]['qty']
+                          if (int.parse(myBoxList['componentsList']?[index]
+                                          ['qty']
                                       .toString() ??
                                   " ") >
                               0) {
-                            boxList['componentsList']?[index]['qty'] =
-                                int.parse(boxList['componentsList']?[index]
+                            myBoxList['componentsList']?[index]['qty'] =
+                                int.parse(myBoxList['componentsList']?[index]
                                                 ['qty']
                                             .toString() ??
                                         "0") -
@@ -653,7 +661,7 @@ myGoalList= boxList;
                                 .map((item) => item['price'] * item['qty'])
                                 .reduce((item1, item2) => item1 + item2);
 
-                            if (int.parse(boxList['componentsList']?[index]
+                            if (int.parse(myBoxList['componentsList']?[index]
                                             ['qty']
                                         .toString() ??
                                     " ") ==
@@ -666,10 +674,10 @@ myGoalList= boxList;
                       },
                       addTap: () {
                         if (cartList
-                            .contains(boxList['componentsList']?[index])) {
+                            .contains(myBoxList['componentsList']?[index])) {
                           setState(() {
-                            boxList['componentsList']?[index]['qty'] =
-                                int.parse(boxList['componentsList']?[index]
+                            myBoxList['componentsList']?[index]['qty'] =
+                                int.parse(myBoxList['componentsList']?[index]
                                                 ['qty']
                                             .toString() ??
                                         "0") +
@@ -682,11 +690,11 @@ myGoalList= boxList;
                           });
                         }
                         if (!cartList
-                            .contains(boxList['componentsList']?[index])) {
-                          cartList.add(boxList['componentsList']?[index]);
+                            .contains(myBoxList['componentsList']?[index])) {
+                          cartList.add(myBoxList['componentsList']?[index]);
                           setState(() {
-                            boxList['componentsList']?[index]['qty'] =
-                                int.parse(boxList['componentsList']?[index]
+                            myBoxList['componentsList']?[index]['qty'] =
+                                int.parse(myBoxList['componentsList']?[index]
                                                 ['qty']
                                             .toString() ??
                                         "0") +
@@ -699,13 +707,13 @@ myGoalList= boxList;
                           });
                         }
                       },
-                      itemName: boxList['componentsList']?[index]['item']
+                      itemName: myBoxList['componentsList']?[index]['item']
                               .toString() ??
                           " ",
-                      qty: int.parse(
-                          boxList['componentsList']?[index]['qty'].toString() ??
-                              '0'),
-                      size: boxList['componentsList']?[index]['size']
+                      qty: int.parse(myBoxList['componentsList']?[index]['qty']
+                              .toString() ??
+                          '0'),
+                      size: myBoxList['componentsList']?[index]['size']
                               .toString() ??
                           ''),
                   SizedBox(
@@ -805,21 +813,21 @@ myGoalList= boxList;
                     ItemCard(
                         removeTap: () {
                           setState(() {
-                            if (int.parse(myGoalList['pillarList']?[index]['qty']
+                            if (int.parse(myGoalList['pillarList']?[index]
+                                            ['qty']
                                         .toString() ??
                                     '0') >
                                 0) {
-                              myGoalList['pillarList']?[index]['qty'] = int.parse(
-                                      myGoalList['pillarList']?[index]['qty']
+                              myGoalList['pillarList']?[index]['qty'] =
+                                  int.parse(myGoalList['pillarList']?[index]
+                                                  ['qty']
                                               .toString() ??
                                           '0') -
-                                  1;
+                                      1;
 
-                              // totalAmount = cartList
-                              //     .map((item) =>
-                              //         item['price'] * item['qty'])
-                              //     .reduce((item1, item2) =>
-                              //         item1 + item2);
+                              pillarTotalCost = cartList
+                                  .map((item) => item['price'] * item['qty'])
+                                  .reduce((item1, item2) => item1 + item2);
 
                               if (int.parse(myGoalList['pillarList']?[index]
                                               ['qty']
@@ -836,48 +844,48 @@ myGoalList= boxList;
                           if (cartList
                               .contains(myGoalList['pillarList']?[index])) {
                             setState(() {
-                              myGoalList['pillarList']?[index]['qty'] = int.parse(
-                                      myGoalList['pillarList']?[index]['qty']
+                              myGoalList['pillarList']?[index]['qty'] =
+                                  int.parse(myGoalList['pillarList']?[index]
+                                                  ['qty']
                                               .toString() ??
                                           '0') +
-                                  1;
+                                      1;
                             });
-                            // setState(() {
-                            //   totalAmount = cartList
-                            //       .map((item) =>
-                            //           item['price'] * item['qty'])
-                            //       .reduce((item1, item2) =>
-                            //           item1 + item2);
-                            // });
+                            setState(() {
+                              pillarTotalCost = cartList
+                                  .map((item) => item['price'] * item['qty'])
+                                  .reduce((item1, item2) => item1 + item2);
+                            });
                           }
                           if (!cartList
                               .contains(myGoalList['pillarList']?[index])) {
                             cartList.add(myGoalList['pillarList']?[index]);
                             setState(() {
-                              myGoalList['pillarList']?[index]['qty'] = int.parse(
-                                      myGoalList['pillarList']?[index]['qty']
+                              myGoalList['pillarList']?[index]['qty'] =
+                                  int.parse(myGoalList['pillarList']?[index]
+                                                  ['qty']
                                               .toString() ??
                                           '0') +
-                                  1;
+                                      1;
                             });
-                            // setState(() {
-                            //   totalAmount = cartList
-                            //       .map((item) =>
-                            //           item['price'] * item['qty'])
-                            //       .reduce((item1, item2) =>
-                            //           item1 + item2);
-                            // });
+                            setState(() {
+                              pillarTotalCost = cartList
+                                  .map((item) => item['price'] * item['qty'])
+                                  .reduce((item1, item2) => item1 + item2);
+                            });
                           }
+
+                          log(cartList.toString());
                         },
-                        itemName:
-                            myGoalList['pillarList']?[index]['item'].toString() ??
-                                '',
-                        qty: int.parse(
-                            myGoalList['pillarList']?[index]['qty'].toString() ??
-                                '0'),
-                        size:
-                            myGoalList['pillarList']?[index]['size'].toString() ??
-                                ''),
+                        itemName: myGoalList['pillarList']?[index]['item']
+                                .toString() ??
+                            '',
+                        qty: int.parse(myGoalList['pillarList']?[index]['qty']
+                                .toString() ??
+                            '0'),
+                        size: myGoalList['pillarList']?[index]['size']
+                                .toString() ??
+                            ''),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.014,
                     )
@@ -921,7 +929,8 @@ myGoalList= boxList;
                         });
                       },
                       addTap: () {
-                        if (cartList.contains(myGoalList['beamsList']?[index])) {
+                        if (cartList
+                            .contains(myGoalList['beamsList']?[index])) {
                           setState(() {
                             myGoalList['beamsList']?[index]['qty'] = int.parse(
                                     myGoalList['beamsList']?[index]['qty']
@@ -935,7 +944,8 @@ myGoalList= boxList;
                                 .reduce((item1, item2) => item1 + item2);
                           });
                         }
-                        if (!cartList.contains(myGoalList['beamsList']?[index])) {
+                        if (!cartList
+                            .contains(myGoalList['beamsList']?[index])) {
                           cartList.add(myGoalList['beamsList']?[index]);
                           setState(() {
                             myGoalList['beamsList']?[index]['qty'] = int.parse(
@@ -957,8 +967,9 @@ myGoalList= boxList;
                       qty: int.parse(
                           myGoalList['beamsList']?[index]['qty'].toString() ??
                               '0'),
-                      size: myGoalList['beamsList']?[index]['size'].toString() ??
-                          ""),
+                      size:
+                          myGoalList['beamsList']?[index]['size'].toString() ??
+                              ""),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.014,
                   )
@@ -1067,96 +1078,262 @@ myGoalList= boxList;
             keyboardType: TextInputType.number,
             controller: goalPillarText,
             onChanged: (value) {
-          
+// reset values
+              emptyGoalPillar();
+              pillarTotalCost = 0;
 
-           
-// reset values 
-    emptyGoalPillar();
-    pillarTotalCost = 0;
+// 72 = 72/10 =.toInt = 7 and module will give 2
 
+              var moudleFig = int.parse(goalPillarText.text) % 10;
 
-// 72 = 72/10 =.toInt = 7 and module will give 2     
-  
-var moudleFig = int.parse(goalPillarText.text) % 10 ;
+              setState(() {
+                var quantity = (int.parse(goalPillarText.text) / 10).toInt();
+                int cost = pillarPriceList['10']; //
 
+                myGoalList['pillarList']?[0]['qty'] = quantity;
+                pillarTotalCost = pillarTotalCost + (quantity * cost);
+              });
 
-    setState(() {
-      var quantity = (int.parse(goalPillarText.text)/10).toInt();
-      int cost = pillarPriceList['10']; // 
+              setState(() {
+                myGoalList['pillarList']?[0]['qty'] =
+                    (int.parse(goalPillarText.text) / 10).toInt();
+              });
 
-                    myGoalList['pillarList']?[0]['qty'] = quantity;
-                    pillarTotalCost = pillarTotalCost + (quantity * cost );
+              if (cartList.contains(myGoalList['pillarList']?[0])) {
+                setState(() {
+                  myGoalList['pillarList']?[0]['qty'] =
+                      (int.parse(goalPillarText.text) / 10).toInt();
+                });
+                setState(() {
+                  pillarTotalCost = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+              if (!cartList.contains(myGoalList['pillarList']?[0])) {
+                cartList.add(myGoalList['pillarList']?[0]);
+                setState(() {
+                  myGoalList['pillarList']?[0]['qty'] =
+                      (int.parse(goalPillarText.text) / 10).toInt();
+                });
+                setState(() {
+                  pillarTotalCost = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+
+              if (moudleFig == 0) {
+                var cost = variant_400_400['10'];
+                setState(() {
+                  myGoalList['pillarList']?[0]['qty'] =
+                      (int.parse(goalPillarText.text) / 10).toInt();
+                });
+
+                if (cartList.contains(myGoalList['pillarList']?[0])) {
+                  setState(() {
+                    myGoalList['pillarList']?[0]['qty'] =
+                        (int.parse(goalPillarText.text) / 10).toInt();
                   });
-
-
-
- if(moudleFig == 0){
- 
-
-   var cost = variant_400_400['10'];
-    setState(() {
-                    myGoalList['pillarList']?[0]['qty'] = (int.parse(goalPillarText.text)/10).toInt();
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
                   });
-}else if(moudleFig == 8){
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[0])) {
+                  cartList.add(myGoalList['pillarList']?[0]);
+                  setState(() {
+                    myGoalList['pillarList']?[0]['qty'] =
+                        (int.parse(goalPillarText.text) / 10).toInt();
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
 
+                log(moudleFig.toString());
+              } else if (moudleFig == 8) {
+                setState(() {
+                  //  int cost = pillarPriceList['4'];
+                  myGoalList['pillarList']?[3]['qty'] = 2;
+                  // pillarTotalCost = pillarTotalCost + (2 * cost);
+                });
 
-    setState(() {
-      int cost = pillarPriceList['4'];
+                if (cartList.contains(myGoalList['pillarList']?[3])) {
+                  setState(() {
                     myGoalList['pillarList']?[3]['qty'] = 2;
-                     pillarTotalCost = pillarTotalCost + (2 * cost );
                   });
-}else if(moudleFig == 7){
-
-
-    setState(() {
-                    myGoalList['pillarList']?[2]['qty'] = 1;
-                    myGoalList['pillarList']?[4]['qty'] = 1;
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
                   });
-}
-else if(moudleFig == 6){
-    setState(() {
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[3])) {
+                  cartList.add(myGoalList['pillarList']?[3]);
+                  setState(() {
+                    myGoalList['pillarList']?[3]['qty'] = 2;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                log('enterrrrrrrrrrrr');
+              } else if (moudleFig == 7) {
+                setState(() {
+                  myGoalList['pillarList']?[2]['qty'] = 1;
+                  myGoalList['pillarList']?[4]['qty'] = 1;
+                });
+              } else if (moudleFig == 6) {
+                setState(() {
+                  myGoalList['pillarList']?[1]['qty'] = 1;
+                });
+
+                if (cartList.contains(myGoalList['pillarList']?[1])) {
+                  setState(() {
                     myGoalList['pillarList']?[1]['qty'] = 1;
                   });
-}
-else if(moudleFig == 5){
-    setState(() {
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[1])) {
+                  cartList.add(myGoalList['pillarList']?[1]);
+                  setState(() {
+                    myGoalList['pillarList']?[1]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 5) {
+                setState(() {
+                  myGoalList['pillarList']?[2]['qty'] = 1;
+                });
+
+                if (cartList.contains(myGoalList['pillarList']?[2])) {
+                  setState(() {
                     myGoalList['pillarList']?[2]['qty'] = 1;
                   });
-}
-else if(moudleFig == 4){
-    setState(() {
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[2])) {
+                  cartList.add(myGoalList['pillarList']?[2]);
+                  setState(() {
+                    myGoalList['pillarList']?[2]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 4) {
+                setState(() {
+                  myGoalList['pillarList']?[3]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['pillarList']?[3])) {
+                  setState(() {
                     myGoalList['pillarList']?[3]['qty'] = 1;
                   });
-}
-else if(moudleFig == 3){
-    setState(() {
-                    myGoalList['pillarList']?[4]['qty'] = 1;
-                     myGoalList['pillarList']?[5]['qty'] = 1;
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
                   });
-}
-else if(moudleFig == 2){
-    setState(() {
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[3])) {
+                  cartList.add(myGoalList['pillarList']?[3]);
+                  setState(() {
+                    myGoalList['pillarList']?[3]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 3) {
+                setState(() {
+                  myGoalList['pillarList']?[4]['qty'] = 1;
+                  myGoalList['pillarList']?[5]['qty'] = 1;
+                });
+              } else if (moudleFig == 2) {
+                setState(() {
+                  myGoalList['pillarList']?[4]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['pillarList']?[4])) {
+                  setState(() {
                     myGoalList['pillarList']?[4]['qty'] = 1;
                   });
-}
-else if(moudleFig == 1){
-    setState(() {
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[4])) {
+                  cartList.add(myGoalList['pillarList']?[4]);
+                  setState(() {
+                    myGoalList['pillarList']?[4]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 1) {
+                setState(() {
+                  myGoalList['pillarList']?[5]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['pillarList']?[5])) {
+                  setState(() {
                     myGoalList['pillarList']?[5]['qty'] = 1;
                   });
-}
-else{
-  print('value of moduleFig ${moudleFig} ${(int.parse(goalPillarText.text)/10).toInt()}');
-
-    setState(() {
-                    myGoalList['pillarList']?[0]['qty'] = (int.parse(goalPillarText.text)/10).toInt();
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
                   });
-}
-            
-         
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[5])) {
+                  cartList.add(myGoalList['pillarList']?[5]);
+                  setState(() {
+                    myGoalList['pillarList']?[5]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else {
+                print(
+                    'value of moduleFig ${moudleFig} ${(int.parse(goalPillarText.text) / 10).toInt()}');
+
+                setState(() {
+                  myGoalList['pillarList']?[0]['qty'] =
+                      (int.parse(goalPillarText.text) / 10).toInt();
+                });
+              }
             },
             decoration: InputDecoration(
-                          isDense: true, // important line
-                        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              isDense: true, // important line
+              contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
                 borderSide: const BorderSide(color: Colors.grey),
@@ -1181,18 +1358,17 @@ else{
             ),
           ),
         ),
-          SizedBox(
+        SizedBox(
           width: MediaQuery.of(context).size.width * 0.010,
         ),
-          Text(
-                        "X",
-                        style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.blue,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.020),
-                      ),
-                       SizedBox(
+        Text(
+          "X",
+          style: GoogleFonts.inter(
+              fontWeight: FontWeight.w600,
+              color: Colors.blue,
+              fontSize: MediaQuery.of(context).size.height * 0.020),
+        ),
+        SizedBox(
           width: MediaQuery.of(context).size.width * 0.010,
         ),
         Expanded(
@@ -1200,79 +1376,260 @@ else{
             controller: goalBeamText,
             keyboardType: TextInputType.number,
             onChanged: (value) {
-              
-           
+              emptyGoalBeam();
+              beamTotalCost = 0;
 
-    emptyGoalBeam();
-      beamTotalCost = 0;
-      setState(() {
-                    myGoalList['beamsList']?[0]['qty'] = (int.parse(goalBeamText.text)/10).toInt();
+// 72 = 72/10 =.toInt = 7 and module will give
+
+              var moudleFig = int.parse(goalBeamText.text) % 10;
+
+              setState(() {
+                myGoalList['beamsList']?[0]['qty'] =
+                    (int.parse(goalBeamText.text) / 10).toInt();
+              });
+
+              if (cartList.contains(myGoalList['beamsList']?[0]['qty'])) {
+                setState(() {
+                  myGoalList['beamsList']?[0]['qty'] =
+                      (int.parse(goalBeamText.text) / 10).toInt();
+                });
+                setState(() {
+                  beamTotalCost = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+              if (!cartList.contains(myGoalList['beamsList']?[0])) {
+                cartList.add(myGoalList['beamsList']?[0]);
+                setState(() {
+                  myGoalList['beamsList']?[0]['qty'] =
+                      (int.parse(goalBeamText.text) / 10).toInt();
+                });
+                setState(() {
+                  beamTotalCost = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+
+              // setState(() {
+              //   var quantity = (int.parse(goalBeamText.text) / 10).toInt();
+              //   int cost = beamsPriceList['10']; //
+
+              //   myGoalList['beamsList']?[0]['qty'] = quantity;
+              //   beamTotalCost = beamTotalCost + (quantity * cost);
+              // });
+
+              if (moudleFig == 0) {
+                var cost = variant_400_400['10'];
+
+                setState(() {
+                  myGoalList['beamsList']?[0]['qty'] =
+                      (int.parse(goalBeamText.text) / 10).toInt();
+                });
+
+                if (cartList.contains(myGoalList['beamsList']?[0]['qty'])) {
+                  setState(() {
+                    myGoalList['beamsList']?[0]['qty'] =
+                        (int.parse(goalBeamText.text) / 10).toInt();
                   });
-var moudleFig = int.parse(goalBeamText.text) % 10 ;
-if(moudleFig == 0){
- 
-
-    setState(() {
-                    myGoalList['beamsList']?[0]['qty'] = (int.parse(goalBeamText.text)/10).toInt();
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
                   });
-}else if(moudleFig == 8){
+                }
+                if (!cartList.contains(myGoalList['beamsList']?[0])) {
+                  cartList.add(myGoalList['beamsList']?[0]);
+                  setState(() {
+                    myGoalList['beamsList']?[0]['qty'] =
+                        (int.parse(goalBeamText.text) / 10).toInt();
+                  });
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                log('enterrrrrrrrrrrr');
+              } else if (moudleFig == 8) {
+                setState(() {
+                  //  int cost = pillarPriceList['4'];
+                  myGoalList['beamsList']?[3]['qty'] = 2;
+                  // pillarTotalCost = pillarTotalCost + (2 * cost);
+                });
 
-
-    setState(() {
+                if (cartList.contains(myGoalList['beamsList']?[3])) {
+                  setState(() {
                     myGoalList['beamsList']?[3]['qty'] = 2;
                   });
-}else if(moudleFig == 7){
-
-
-    setState(() {
-                    myGoalList['beamsList']?[2]['qty'] = 1;
-                    myGoalList['beamsList']?[4]['qty'] = 1;
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
                   });
-}
-else if(moudleFig == 6){
-    setState(() {
+                }
+                if (!cartList.contains(myGoalList['beamsList']?[3])) {
+                  cartList.add(myGoalList['beamsList']?[3]);
+                  setState(() {
+                    myGoalList['beamsList']?[3]['qty'] = 2;
+                  });
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 7) {
+                setState(() {
+                  myGoalList['beamsList']?[2]['qty'] = 1;
+                  myGoalList['beamsList']?[4]['qty'] = 1;
+                });
+              } else if (moudleFig == 6) {
+                setState(() {
+                  myGoalList['beamsList']?[1]['qty'] = 1;
+                });
+
+                if (cartList.contains(myGoalList['beamsList']?[1])) {
+                  setState(() {
                     myGoalList['beamsList']?[1]['qty'] = 1;
                   });
-}
-else if(moudleFig == 5){
-    setState(() {
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['beamsList']?[1])) {
+                  cartList.add(myGoalList['beamsList']?[1]);
+                  setState(() {
+                    myGoalList['beamsList']?[1]['qty'] = 1;
+                  });
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 5) {
+                setState(() {
+                  myGoalList['beamsList']?[2]['qty'] = 1;
+                });
+
+                if (cartList.contains(myGoalList['beamsList']?[2])) {
+                  setState(() {
                     myGoalList['beamsList']?[2]['qty'] = 1;
                   });
-}
-else if(moudleFig == 4){
-    setState(() {
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['beamsList']?[2])) {
+                  cartList.add(myGoalList['beamsList']?[2]);
+                  setState(() {
+                    myGoalList['beamsList']?[2]['qty'] = 1;
+                  });
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 4) {
+                setState(() {
+                  myGoalList['beamsList']?[3]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['beamsList']?[3])) {
+                  setState(() {
                     myGoalList['beamsList']?[3]['qty'] = 1;
                   });
-}
-else if(moudleFig == 3){
-    setState(() {
-                    myGoalList['beamsList']?[4]['qty'] = 1;
-                     myGoalList['beamsList']?[5]['qty'] = 1;
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
                   });
-}
-else if(moudleFig == 2){
-    setState(() {
+                }
+                if (!cartList.contains(myGoalList['beamsList']?[3])) {
+                  cartList.add(myGoalList['beamsList']?[3]);
+                  setState(() {
+                    myGoalList['beamsList']?[3]['qty'] = 1;
+                  });
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 3) {
+                setState(() {
+                  myGoalList['beamsList']?[4]['qty'] = 1;
+                  myGoalList['beamsList']?[5]['qty'] = 1;
+                });
+              } else if (moudleFig == 2) {
+                setState(() {
+                  myGoalList['beamsList']?[4]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['beamsList']?[4])) {
+                  setState(() {
                     myGoalList['beamsList']?[4]['qty'] = 1;
                   });
-}
-else if(moudleFig == 1){
-    setState(() {
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['beamsList']?[4])) {
+                  cartList.add(myGoalList['beamsList']?[4]);
+                  setState(() {
+                    myGoalList['beamsList']?[4]['qty'] = 1;
+                  });
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 1) {
+                setState(() {
+                  myGoalList['beamsList']?[5]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['beamsList']?[5])) {
+                  setState(() {
                     myGoalList['beamsList']?[5]['qty'] = 1;
                   });
-}
-else{
-  print('value of moduleFig ${moudleFig} ${(int.parse(goalBeamText.text)/10).toInt()}');
-
-    setState(() {
-                    myGoalList['beamsList']?[0]['qty'] = (int.parse(goalBeamText.text)/10).toInt();
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
                   });
-}
-             
+                }
+                if (!cartList.contains(myGoalList['beamsList']?[5])) {
+                  cartList.add(myGoalList['beamsList']?[5]);
+                  setState(() {
+                    myGoalList['beamsList']?[5]['qty'] = 1;
+                  });
+                  setState(() {
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else {
+                print(
+                    'value of moduleFig ${moudleFig} ${(int.parse(goalPillarText.text) / 10).toInt()}');
+
+                setState(() {
+                  myGoalList['pillarList']?[0]['qty'] =
+                      (int.parse(goalPillarText.text) / 10).toInt();
+                });
+              }
             },
             decoration: InputDecoration(
-
-                            isDense: true, // important line
-                        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              isDense: true, // important line
+              contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
                 borderSide: const BorderSide(color: Colors.grey),
@@ -1308,35 +1665,256 @@ else{
           child: TextFormField(
             keyboardType: TextInputType.number,
             controller: boxPillarText,
-            
             onChanged: (value) {
-              if (cartList.contains(boxList['pillarList']?[0])) {
-                if (boxPillarText.text == '') {
-                  setState(() {
-                    boxList['pillarList']?[0]['qty'] = 0;
-                  });
-                }
+              emptyBoxPillar();
+              boxPillarTotalCost = 0;
+
+// 72 = 72/10 =.toInt = 7 and module will give 2
+
+              var moudleFig = int.parse(boxPillarText.text) % 10;
+
+              setState(() {
+                var quantity = (int.parse(boxPillarText.text) / 10).toInt();
+                int cost = pillarPriceList['10']; //
+
+                myBoxList['pillarList']?[0]['qty'] = quantity;
+                boxPillarTotalCost = boxPillarTotalCost + (quantity * cost);
+              });
+
+              setState(() {
+                myBoxList['pillarList']?[0]['qty'] =
+                    (int.parse(boxPillarText.text) / 10).toInt();
+              });
+
+              if (cartList.contains(myBoxList['pillarList']?[0])) {
                 setState(() {
-                  boxList['pillarList']?[0]['qty'] =
-                      int.parse(boxPillarText.text);
+                  myBoxList['pillarList']?[0]['qty'] =
+                      (int.parse(boxPillarText.text) / 10).toInt();
                 });
                 setState(() {
-                  totalAmount = cartList
+                  boxPillarTotalCost = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+              if (!cartList.contains(myBoxList['pillarList']?[0])) {
+                cartList.add(myBoxList['pillarList']?[0]);
+                setState(() {
+                  myBoxList['pillarList']?[0]['qty'] =
+                      (int.parse(boxPillarText.text) / 10).toInt();
+                });
+                setState(() {
+                  boxPillarTotalCost = cartList
                       .map((item) => item['price'] * item['qty'])
                       .reduce((item1, item2) => item1 + item2);
                 });
               }
 
-              if (!cartList.contains(boxList['pillarList']?[0])) {
-                cartList.add(boxList['pillarList']?[0]);
+              if (moudleFig == 0) {
+                var cost = variant_400_400['10'];
                 setState(() {
-                  boxList['pillarList']?[0]['qty'] =
-                      int.parse(boxPillarText.text);
+                  myBoxList['pillarList']?[0]['qty'] =
+                      (int.parse(boxPillarText.text) / 10).toInt();
                 });
+
+                if (cartList.contains(myBoxList['pillarList']?[0])) {
+                  setState(() {
+                    myBoxList['pillarList']?[0]['qty'] =
+                        (int.parse(boxPillarText.text) / 10).toInt();
+                  });
+                  setState(() {
+                    boxPillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myBoxList['pillarList']?[0])) {
+                  cartList.add(myBoxList['pillarList']?[0]);
+                  setState(() {
+                    myBoxList['pillarList']?[0]['qty'] =
+                        (int.parse(goalPillarText.text) / 10).toInt();
+                  });
+                  setState(() {
+                    boxPillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+
+                log(moudleFig.toString());
+              } else if (moudleFig == 8) {
                 setState(() {
-                  totalAmount = cartList
-                      .map((item) => item['price'] * item['qty'])
-                      .reduce((item1, item2) => item1 + item2);
+                  //  int cost = pillarPriceList['4'];
+                  myGoalList['pillarList']?[3]['qty'] = 2;
+                  // pillarTotalCost = pillarTotalCost + (2 * cost);
+                });
+
+                if (cartList.contains(myGoalList['pillarList']?[3])) {
+                  setState(() {
+                    myGoalList['pillarList']?[3]['qty'] = 2;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[3])) {
+                  cartList.add(myGoalList['pillarList']?[3]);
+                  setState(() {
+                    myGoalList['pillarList']?[3]['qty'] = 2;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                log('enterrrrrrrrrrrr');
+              } else if (moudleFig == 7) {
+                setState(() {
+                  myGoalList['pillarList']?[2]['qty'] = 1;
+                  myGoalList['pillarList']?[4]['qty'] = 1;
+                });
+              } else if (moudleFig == 6) {
+                setState(() {
+                  myGoalList['pillarList']?[1]['qty'] = 1;
+                });
+
+                if (cartList.contains(myGoalList['pillarList']?[1])) {
+                  setState(() {
+                    myGoalList['pillarList']?[1]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[1])) {
+                  cartList.add(myGoalList['pillarList']?[1]);
+                  setState(() {
+                    myGoalList['pillarList']?[1]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 5) {
+                setState(() {
+                  myGoalList['pillarList']?[2]['qty'] = 1;
+                });
+
+                if (cartList.contains(myGoalList['pillarList']?[2])) {
+                  setState(() {
+                    myGoalList['pillarList']?[2]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[2])) {
+                  cartList.add(myGoalList['pillarList']?[2]);
+                  setState(() {
+                    myGoalList['pillarList']?[2]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 4) {
+                setState(() {
+                  myGoalList['pillarList']?[3]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['pillarList']?[3])) {
+                  setState(() {
+                    myGoalList['pillarList']?[3]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[3])) {
+                  cartList.add(myGoalList['pillarList']?[3]);
+                  setState(() {
+                    myGoalList['pillarList']?[3]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 3) {
+                setState(() {
+                  myGoalList['pillarList']?[4]['qty'] = 1;
+                  myGoalList['pillarList']?[5]['qty'] = 1;
+                });
+              } else if (moudleFig == 2) {
+                setState(() {
+                  myGoalList['pillarList']?[4]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['pillarList']?[4])) {
+                  setState(() {
+                    myGoalList['pillarList']?[4]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[4])) {
+                  cartList.add(myGoalList['pillarList']?[4]);
+                  setState(() {
+                    myGoalList['pillarList']?[4]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 1) {
+                setState(() {
+                  myGoalList['pillarList']?[5]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['pillarList']?[5])) {
+                  setState(() {
+                    myGoalList['pillarList']?[5]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[5])) {
+                  cartList.add(myGoalList['pillarList']?[5]);
+                  setState(() {
+                    myGoalList['pillarList']?[5]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else {
+                print(
+                    'value of moduleFig ${moudleFig} ${(int.parse(goalPillarText.text) / 10).toInt()}');
+
+                setState(() {
+                  myGoalList['pillarList']?[0]['qty'] =
+                      (int.parse(goalPillarText.text) / 10).toInt();
                 });
               }
             },
@@ -1364,61 +1942,29 @@ else{
               ),
               filled: true,
               isDense: true, // important line
-                        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
             ),
           ),
         ),
-         SizedBox(
+        SizedBox(
           width: MediaQuery.of(context).size.width * 0.010,
         ),
-          Text(
-                        "X",
-                        style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.blue,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.020),
-                      ),
-                       SizedBox(
+        Text(
+          "X",
+          style: GoogleFonts.inter(
+              fontWeight: FontWeight.w600,
+              color: Colors.blue,
+              fontSize: MediaQuery.of(context).size.height * 0.020),
+        ),
+        SizedBox(
           width: MediaQuery.of(context).size.width * 0.010,
         ),
         Expanded(
           child: TextFormField(
             controller: boxBeam1Text,
             keyboardType: TextInputType.number,
-            onChanged: (value) {
-              if (cartList.contains(boxList['beamsList']?[0])) {
-                if (boxBeam1Text.text == '') {
-                  setState(() {
-                    boxList['beamsList']?[0]['qty'] = 0;
-                  });
-                }
-                setState(() {
-                  boxList['beamsList']?[0]['qty'] =
-                      2 * int.parse(boxBeam1Text.text);
-                });
-                setState(() {
-                  totalAmount = cartList
-                      .map((item) => item['price'] * item['qty'])
-                      .reduce((item1, item2) => item1 + item2);
-                });
-              }
-
-              if (!cartList.contains(boxList['beamsList']?[0])) {
-                cartList.add(boxList['beamsList']?[0]);
-                setState(() {
-                  boxList['beamsList']?[0]['qty'] =
-                      2 * int.parse(boxBeam1Text.text);
-                });
-                setState(() {
-                  totalAmount = cartList
-                      .map((item) => item['price'] * item['qty'])
-                      .reduce((item1, item2) => item1 + item2);
-                });
-              }
-            },
+            onChanged: (value) {},
             decoration: InputDecoration(
-       
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
                 borderSide: const BorderSide(color: Colors.grey),
@@ -1440,23 +1986,22 @@ else{
                 borderSide: const BorderSide(color: Colors.grey),
               ),
               filled: true,
-                         isDense: true, // important line
-                        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              isDense: true, // important line
+              contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
             ),
           ),
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.010,
         ),
-          Text(
-                        "X",
-                        style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.blue,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.020),
-                      ),
-                       SizedBox(
+        Text(
+          "X",
+          style: GoogleFonts.inter(
+              fontWeight: FontWeight.w600,
+              color: Colors.blue,
+              fontSize: MediaQuery.of(context).size.height * 0.020),
+        ),
+        SizedBox(
           width: MediaQuery.of(context).size.width * 0.010,
         ),
         Expanded(
@@ -1464,14 +2009,14 @@ else{
             controller: boxBeam2Text,
             keyboardType: TextInputType.number,
             onChanged: (value) {
-              if (cartList.contains(boxList['beamsList']?[0])) {
+              if (cartList.contains(myBoxList['beamsList']?[0])) {
                 if (boxBeam2Text.text == '') {
                   setState(() {
-                    boxList['beamsList']?[0]['qty'] = 0;
+                    myBoxList['beamsList']?[0]['qty'] = 0;
                   });
                 }
                 setState(() {
-                  boxList['beamsList']?[0]['qty'] =
+                  myBoxList['beamsList']?[0]['qty'] =
                       2 * int.parse(boxBeam2Text.text);
                 });
                 setState(() {
@@ -1481,10 +2026,10 @@ else{
                 });
               }
 
-              if (!cartList.contains(boxList['beamsList']?[0])) {
-                cartList.add(boxList['beamsList']?[0]);
+              if (!cartList.contains(myBoxList['beamsList']?[0])) {
+                cartList.add(myBoxList['beamsList']?[0]);
                 setState(() {
-                  boxList['beamsList']?[0]['qty'] =
+                  myBoxList['beamsList']?[0]['qty'] =
                       2 * int.parse(boxBeam2Text.text);
                 });
                 setState(() {
@@ -1495,7 +2040,6 @@ else{
               }
             },
             decoration: InputDecoration(
-     
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
                 borderSide: const BorderSide(color: Colors.grey),
@@ -1517,8 +2061,8 @@ else{
                 borderSide: const BorderSide(color: Colors.grey),
               ),
               filled: true,
-                         isDense: true, // important line
-                        contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              isDense: true, // important line
+              contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
             ),
           ),
         ),
