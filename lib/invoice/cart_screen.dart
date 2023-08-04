@@ -37,7 +37,7 @@ class _CartScreenState extends State<CartScreen> {
   bool german = false;
 
   int pillarTotalCost = 0;
-  int boxBeamTotalCost = 0;
+  int boxBeam1TotalCost = 0;
   int boxPillarTotalCost = 0;
   int beamTotalCost = 0;
   int componentsCost = 0;
@@ -315,7 +315,7 @@ class _CartScreenState extends State<CartScreen> {
                                           0.030,
                                     ),
                                     Text(
-                                      "₹${pillarTotalCost + beamTotalCost + boxPillarTotalCost} ",
+                                      "₹${boxPillarTotalCost + pillarTotalCost + beamTotalCost} ",
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
@@ -479,12 +479,14 @@ class _CartScreenState extends State<CartScreen> {
                                               .toString() ??
                                           '0') -
                                       1;
+                              pillarTotalCost = 0;
+                              beamTotalCost = 0;
+                              boxPillarTotalCost = 0;
+                              boxBeam1TotalCost = 0;
 
-                              // totalAmount = cartList
-                              //     .map((item) =>
-                              //         item['price'] * item['qty'])
-                              //     .reduce((item1, item2) =>
-                              //         item1 + item2);
+                              boxPillarTotalCost = cartList
+                                  .map((item) => item['price'] * item['qty'])
+                                  .reduce((item1, item2) => item1 + item2);
 
                               if (int.parse(myBoxList['pillarList']?[index]
                                               ['qty']
@@ -508,13 +510,16 @@ class _CartScreenState extends State<CartScreen> {
                                           '0') +
                                       1;
                             });
-                            // setState(() {
-                            //   totalAmount = cartList
-                            //       .map((item) =>
-                            //           item['price'] * item['qty'])
-                            //       .reduce((item1, item2) =>
-                            //           item1 + item2);
-                            // });
+                            setState(() {
+                              pillarTotalCost = 0;
+                              beamTotalCost = 0;
+                              boxPillarTotalCost = 0;
+                              boxBeam1TotalCost = 0;
+
+                              boxPillarTotalCost = cartList
+                                  .map((item) => item['price'] * item['qty'])
+                                  .reduce((item1, item2) => item1 + item2);
+                            });
                           }
                           if (!cartList
                               .contains(myBoxList['pillarList']?[index])) {
@@ -527,13 +532,16 @@ class _CartScreenState extends State<CartScreen> {
                                           '0') +
                                       1;
                             });
-                            // setState(() {
-                            //   totalAmount = cartList
-                            //       .map((item) =>
-                            //           item['price'] * item['qty'])
-                            //       .reduce((item1, item2) =>
-                            //           item1 + item2);
-                            // });
+                            setState(() {
+                              pillarTotalCost = 0;
+                              beamTotalCost = 0;
+                              boxPillarTotalCost = 0;
+                              boxBeam1TotalCost = 0;
+
+                              boxPillarTotalCost = cartList
+                                  .map((item) => item['price'] * item['qty'])
+                                  .reduce((item1, item2) => item1 + item2);
+                            });
                           }
                         },
                         itemName: myBoxList['pillarList']?[index]['item']
@@ -573,7 +581,12 @@ class _CartScreenState extends State<CartScreen> {
                                         '0') -
                                 1;
 
-                            totalAmount = cartList
+                            pillarTotalCost = 0;
+                            beamTotalCost = 0;
+                            boxPillarTotalCost = 0;
+                            boxBeam1TotalCost = 0;
+
+                            beamTotalCost = cartList
                                 .map((item) => item['price'] * item['qty'])
                                 .reduce((item1, item2) => item1 + item2);
 
@@ -597,7 +610,12 @@ class _CartScreenState extends State<CartScreen> {
                                 1;
                           });
                           setState(() {
-                            totalAmount = cartList
+                            pillarTotalCost = 0;
+                            beamTotalCost = 0;
+                            boxPillarTotalCost = 0;
+                            boxBeam1TotalCost = 0;
+
+                            beamTotalCost = cartList
                                 .map((item) => item['price'] * item['qty'])
                                 .reduce((item1, item2) => item1 + item2);
                           });
@@ -613,7 +631,12 @@ class _CartScreenState extends State<CartScreen> {
                                 1;
                           });
                           setState(() {
-                            totalAmount = cartList
+                            pillarTotalCost = 0;
+                            beamTotalCost = 0;
+                            boxPillarTotalCost = 0;
+                            boxBeam1TotalCost = 0;
+
+                            beamTotalCost = cartList
                                 .map((item) => item['price'] * item['qty'])
                                 .reduce((item1, item2) => item1 + item2);
                           });
@@ -825,6 +848,11 @@ class _CartScreenState extends State<CartScreen> {
                                           '0') -
                                       1;
 
+                              pillarTotalCost = 0;
+                              beamTotalCost = 0;
+                              boxPillarTotalCost = 0;
+                              boxBeam1TotalCost = 0;
+
                               pillarTotalCost = cartList
                                   .map((item) => item['price'] * item['qty'])
                                   .reduce((item1, item2) => item1 + item2);
@@ -852,6 +880,11 @@ class _CartScreenState extends State<CartScreen> {
                                       1;
                             });
                             setState(() {
+                              pillarTotalCost = 0;
+                              beamTotalCost = 0;
+                              boxPillarTotalCost = 0;
+                              boxBeam1TotalCost = 0;
+
                               pillarTotalCost = cartList
                                   .map((item) => item['price'] * item['qty'])
                                   .reduce((item1, item2) => item1 + item2);
@@ -869,6 +902,11 @@ class _CartScreenState extends State<CartScreen> {
                                       1;
                             });
                             setState(() {
+                              pillarTotalCost = 0;
+                              beamTotalCost = 0;
+                              boxPillarTotalCost = 0;
+                              boxBeam1TotalCost = 0;
+
                               pillarTotalCost = cartList
                                   .map((item) => item['price'] * item['qty'])
                                   .reduce((item1, item2) => item1 + item2);
@@ -914,7 +952,12 @@ class _CartScreenState extends State<CartScreen> {
                                         '0') -
                                 1;
 
-                            totalAmount = cartList
+                            pillarTotalCost = 0;
+                            beamTotalCost = 0;
+                            boxPillarTotalCost = 0;
+                            boxBeam1TotalCost = 0;
+
+                            beamTotalCost = cartList
                                 .map((item) => item['price'] * item['qty'])
                                 .reduce((item1, item2) => item1 + item2);
 
@@ -939,7 +982,12 @@ class _CartScreenState extends State<CartScreen> {
                                 1;
                           });
                           setState(() {
-                            totalAmount = cartList
+                            pillarTotalCost = 0;
+                            beamTotalCost = 0;
+                            boxPillarTotalCost = 0;
+                            boxBeam1TotalCost = 0;
+
+                            beamTotalCost = cartList
                                 .map((item) => item['price'] * item['qty'])
                                 .reduce((item1, item2) => item1 + item2);
                           });
@@ -955,7 +1003,12 @@ class _CartScreenState extends State<CartScreen> {
                                 1;
                           });
                           setState(() {
-                            totalAmount = cartList
+                            pillarTotalCost = 0;
+                            beamTotalCost = 0;
+                            boxPillarTotalCost = 0;
+                            boxBeam1TotalCost = 0;
+
+                            beamTotalCost = cartList
                                 .map((item) => item['price'] * item['qty'])
                                 .reduce((item1, item2) => item1 + item2);
                           });
@@ -1081,6 +1134,9 @@ class _CartScreenState extends State<CartScreen> {
 // reset values
               emptyGoalPillar();
               pillarTotalCost = 0;
+              beamTotalCost = 0;
+              boxPillarTotalCost = 0;
+              boxBeam1TotalCost = 0;
 
 // 72 = 72/10 =.toInt = 7 and module will give 2
 
@@ -1330,6 +1386,8 @@ class _CartScreenState extends State<CartScreen> {
                       (int.parse(goalPillarText.text) / 10).toInt();
                 });
               }
+
+              log("Pillar cost : $pillarTotalCost");
             },
             decoration: InputDecoration(
               isDense: true, // important line
@@ -1373,22 +1431,34 @@ class _CartScreenState extends State<CartScreen> {
         ),
         Expanded(
           child: TextFormField(
-            controller: goalBeamText,
             keyboardType: TextInputType.number,
+            controller: goalBeamText,
             onChanged: (value) {
+// reset values
               emptyGoalBeam();
+              pillarTotalCost = 0;
               beamTotalCost = 0;
+              boxPillarTotalCost = 0;
+              boxBeam1TotalCost = 0;
 
-// 72 = 72/10 =.toInt = 7 and module will give
+// 72 = 72/10 =.toInt = 7 and module will give 2
 
               var moudleFig = int.parse(goalBeamText.text) % 10;
+
+              setState(() {
+                var quantity = (int.parse(goalBeamText.text) / 10).toInt();
+                int cost = pillarPriceList['10']; //
+
+                myGoalList['beamsList']?[0]['qty'] = quantity;
+                beamTotalCost = beamTotalCost + (quantity * cost);
+              });
 
               setState(() {
                 myGoalList['beamsList']?[0]['qty'] =
                     (int.parse(goalBeamText.text) / 10).toInt();
               });
 
-              if (cartList.contains(myGoalList['beamsList']?[0]['qty'])) {
+              if (cartList.contains(myGoalList['beamsList']?[0])) {
                 setState(() {
                   myGoalList['beamsList']?[0]['qty'] =
                       (int.parse(goalBeamText.text) / 10).toInt();
@@ -1412,23 +1482,14 @@ class _CartScreenState extends State<CartScreen> {
                 });
               }
 
-              // setState(() {
-              //   var quantity = (int.parse(goalBeamText.text) / 10).toInt();
-              //   int cost = beamsPriceList['10']; //
-
-              //   myGoalList['beamsList']?[0]['qty'] = quantity;
-              //   beamTotalCost = beamTotalCost + (quantity * cost);
-              // });
-
               if (moudleFig == 0) {
                 var cost = variant_400_400['10'];
-
                 setState(() {
                   myGoalList['beamsList']?[0]['qty'] =
                       (int.parse(goalBeamText.text) / 10).toInt();
                 });
 
-                if (cartList.contains(myGoalList['beamsList']?[0]['qty'])) {
+                if (cartList.contains(myGoalList['beamsList']?[0])) {
                   setState(() {
                     myGoalList['beamsList']?[0]['qty'] =
                         (int.parse(goalBeamText.text) / 10).toInt();
@@ -1451,12 +1512,13 @@ class _CartScreenState extends State<CartScreen> {
                         .reduce((item1, item2) => item1 + item2);
                   });
                 }
-                log('enterrrrrrrrrrrr');
+
+                log(moudleFig.toString());
               } else if (moudleFig == 8) {
                 setState(() {
                   //  int cost = pillarPriceList['4'];
                   myGoalList['beamsList']?[3]['qty'] = 2;
-                  // pillarTotalCost = pillarTotalCost + (2 * cost);
+                  // beamTotalCost = beamTotalCost + (2 * cost);
                 });
 
                 if (cartList.contains(myGoalList['beamsList']?[3])) {
@@ -1480,6 +1542,7 @@ class _CartScreenState extends State<CartScreen> {
                         .reduce((item1, item2) => item1 + item2);
                   });
                 }
+                log('enterrrrrrrrrrrr');
               } else if (moudleFig == 7) {
                 setState(() {
                   myGoalList['beamsList']?[2]['qty'] = 1;
@@ -1619,13 +1682,15 @@ class _CartScreenState extends State<CartScreen> {
                 }
               } else {
                 print(
-                    'value of moduleFig ${moudleFig} ${(int.parse(goalPillarText.text) / 10).toInt()}');
+                    'value of moduleFig ${moudleFig} ${(int.parse(goalBeamText.text) / 10).toInt()}');
 
                 setState(() {
-                  myGoalList['pillarList']?[0]['qty'] =
-                      (int.parse(goalPillarText.text) / 10).toInt();
+                  myGoalList['beamsList']?[0]['qty'] =
+                      (int.parse(goalBeamText.text) / 10).toInt();
                 });
               }
+
+              log("Beam cost : $beamTotalCost");
             },
             decoration: InputDecoration(
               isDense: true, // important line
@@ -1668,7 +1733,9 @@ class _CartScreenState extends State<CartScreen> {
             onChanged: (value) {
               emptyBoxPillar();
               boxPillarTotalCost = 0;
-
+              pillarTotalCost = 0;
+              beamTotalCost = 0;
+              boxBeam1TotalCost = 0;
 // 72 = 72/10 =.toInt = 7 and module will give 2
 
               var moudleFig = int.parse(boxPillarText.text) % 10;
@@ -1732,7 +1799,7 @@ class _CartScreenState extends State<CartScreen> {
                   cartList.add(myBoxList['pillarList']?[0]);
                   setState(() {
                     myBoxList['pillarList']?[0]['qty'] =
-                        (int.parse(goalPillarText.text) / 10).toInt();
+                        (int.parse(goalBeamText.text) / 10).toInt();
                   });
                   setState(() {
                     boxPillarTotalCost = cartList
@@ -1910,11 +1977,11 @@ class _CartScreenState extends State<CartScreen> {
                 }
               } else {
                 print(
-                    'value of moduleFig ${moudleFig} ${(int.parse(goalPillarText.text) / 10).toInt()}');
+                    'value of moduleFig ${moudleFig} ${(int.parse(goalBeamText.text) / 10).toInt()}');
 
                 setState(() {
                   myGoalList['pillarList']?[0]['qty'] =
-                      (int.parse(goalPillarText.text) / 10).toInt();
+                      (int.parse(goalBeamText.text) / 10).toInt();
                 });
               }
             },
@@ -1963,7 +2030,370 @@ class _CartScreenState extends State<CartScreen> {
           child: TextFormField(
             controller: boxBeam1Text,
             keyboardType: TextInputType.number,
-            onChanged: (value) {},
+            onChanged: (value) {
+              emptyBoxBeam();
+              pillarTotalCost = 0;
+              beamTotalCost = 0;
+              boxPillarTotalCost = 0;
+              boxBeam1TotalCost = 0;
+
+// 72 = 72/10 =.toInt = 7 and module will give 2
+
+              var moudleFig = int.parse(boxBeam1Text.text) % 10;
+
+              setState(() {
+                var quantity = (int.parse(boxBeam1Text.text) / 10).toInt();
+                int cost = pillarPriceList['10']; //
+
+                myBoxList['beamsList']?[0]['qty'] = quantity;
+                boxBeam1TotalCost = boxBeam1TotalCost + (quantity * cost);
+              });
+
+              setState(() {
+                int.parse((myBoxList['beamsList']?[0]['qty']).toString()) +
+                    (int.parse(boxBeam1Text.text) / 10).toInt();
+              });
+
+              if (cartList.contains(myBoxList['beamsList']?[0])) {
+                setState(() {
+                  int.parse((myBoxList['beamsList']?[0]['qty']).toString()) +
+                      (int.parse(boxBeam1Text.text) / 10).toInt();
+                });
+                setState(() {
+                  boxBeam1TotalCost = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+              if (!cartList.contains(myBoxList['beamsList']?[0])) {
+                cartList.add(myBoxList['beamsList']?[0]);
+                setState(() {
+                  int.parse((myBoxList['beamsList']?[0]['qty']).toString()) +
+                      (int.parse(boxBeam1Text.text) / 10).toInt();
+                });
+                setState(() {
+                  boxBeam1TotalCost = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+
+              if (moudleFig == 0) {
+                var cost = variant_400_400['10'];
+                setState(() {
+                  int.parse((myBoxList['beamsList']?[0]['qty']).toString()) +
+                      (int.parse(boxBeam1Text.text) / 10).toInt();
+                });
+
+                if (cartList.contains(myBoxList['beamsList']?[0])) {
+                  setState(() {
+                    int.parse((myBoxList['beamsList']?[0]['qty']).toString()) +
+                        (int.parse(boxBeam1Text.text) / 10).toInt();
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myBoxList['beamsList']?[0])) {
+                  cartList.add(myBoxList['beamsList']?[0]);
+                  setState(() {
+                    myBoxList['beamsList']?[0]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[0]['qty']).toString()) +
+                        (int.parse(boxBeam1Text.text) / 10).toInt();
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 8) {
+                setState(() {
+                  //  int cost = pillarPriceList['4'];
+                  myBoxList['beamsList']?[3]['qty'] = int.parse(
+                          (myBoxList['beamsList']?[3]['qty']).toString()) +
+                      2;
+                  // beamTotalCost = beamTotalCost + (2 * cost);
+                });
+
+                if (cartList.contains(myBoxList['beamsList']?[3])) {
+                  setState(() {
+                    myBoxList['beamsList']?[3]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[3]['qty']).toString()) +
+                        2;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myBoxList['beamsList']?[3])) {
+                  cartList.add(myBoxList['beamsList']?[3]);
+                  setState(() {
+                    myBoxList['beamsList']?[3]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[3]['qty']).toString()) +
+                        2;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                log('enterrrrrrrrrrrr');
+              } else if (moudleFig == 7) {
+                setState(() {
+                  myBoxList['beamsList']?[2]['qty'] = 1;
+                  myBoxList['beamsList']?[4]['qty'] = 1;
+                });
+              } else if (moudleFig == 6) {
+                setState(() {
+                  myBoxList['beamsList']?[1]['qty'] = int.parse(
+                          (myBoxList['beamsList']?[1]['qty']).toString()) +
+                      1;
+                });
+
+                if (cartList.contains(myBoxList['beamsList']?[1])) {
+                  setState(() {
+                    myBoxList['beamsList']?[1]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[1]['qty']).toString()) +
+                        1;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myBoxList['beamsList']?[1])) {
+                  cartList.add(myBoxList['beamsList']?[1]);
+                  setState(() {
+                    myBoxList['beamsList']?[1]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[1]['qty']).toString()) +
+                        1;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 5) {
+                setState(() {
+                  myBoxList['beamsList']?[2]['qty'] = int.parse(
+                          (myBoxList['beamsList']?[2]['qty']).toString()) +
+                      1;
+                });
+
+                if (cartList.contains(myBoxList['beamsList']?[2])) {
+                  setState(() {
+                    myBoxList['beamsList']?[2]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[2]['qty']).toString()) +
+                        1;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myBoxList['beamsList']?[2])) {
+                  cartList.add(myBoxList['beamsList']?[2]);
+                  setState(() {
+                    myBoxList['beamsList']?[2]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[2]['qty']).toString()) +
+                        1;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 4) {
+                setState(() {
+                  myBoxList['beamsList']?[3]['qty'] = int.parse(
+                          (myBoxList['beamsList']?[3]['qty']).toString()) +
+                      1;
+                });
+                if (cartList.contains(myBoxList['beamsList']?[3])) {
+                  setState(() {
+                    myBoxList['beamsList']?[3]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[3]['qty']).toString()) +
+                        1;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myBoxList['beamsList']?[3])) {
+                  cartList.add(myBoxList['beamsList']?[3]);
+                  setState(() {
+                    myBoxList['beamsList']?[3]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[3]['qty']).toString()) +
+                        1;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 3) {
+                setState(() {
+                  myBoxList['beamsList']?[4]['qty'] = 1;
+                  myBoxList['beamsList']?[5]['qty'] = 1;
+                });
+              } else if (moudleFig == 2) {
+                setState(() {
+                  myBoxList['beamsList']?[4]['qty'] = int.parse(
+                          (myBoxList['beamsList']?[4]['qty']).toString()) +
+                      1;
+                });
+                if (cartList.contains(myBoxList['beamsList']?[4])) {
+                  setState(() {
+                    myBoxList['beamsList']?[4]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[4]['qty']).toString()) +
+                        1;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myBoxList['beamsList']?[4])) {
+                  cartList.add(myBoxList['beamsList']?[4]);
+                  setState(() {
+                    myBoxList['beamsList']?[4]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[4]['qty']).toString()) +
+                        1;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 1) {
+                setState(() {
+                  myBoxList['beamsList']?[5]['qty'] = int.parse(
+                          (myBoxList['beamsList']?[5]['qty']).toString()) +
+                      1;
+                  1;
+                });
+                if (cartList.contains(myBoxList['beamsList']?[5])) {
+                  setState(() {
+                    myBoxList['beamsList']?[5]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[5]['qty']).toString()) +
+                        1;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myBoxList['beamsList']?[5])) {
+                  cartList.add(myBoxList['beamsList']?[5]);
+                  setState(() {
+                    myBoxList['beamsList']?[5]['qty'] = int.parse(
+                            (myBoxList['beamsList']?[5]['qty']).toString()) +
+                        1;
+                  });
+                  setState(() {
+                    pillarTotalCost = 0;
+                    beamTotalCost = 0;
+                    boxPillarTotalCost = 0;
+                    boxBeam1TotalCost = 0;
+
+                    beamTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else {
+                print(
+                    'value of moduleFig ${moudleFig} ${(int.parse(boxBeam1Text.text) / 10).toInt()}');
+
+                setState(() {
+                  myBoxList['beamsList']?[0]['qty'] =
+                      (int.parse(boxBeam1Text.text) / 10).toInt();
+                });
+              }
+
+              log("Beam cost : $boxBeam1TotalCost");
+            },
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.0),
@@ -2009,35 +2439,368 @@ class _CartScreenState extends State<CartScreen> {
             controller: boxBeam2Text,
             keyboardType: TextInputType.number,
             onChanged: (value) {
-              if (cartList.contains(myBoxList['beamsList']?[0])) {
-                if (boxBeam2Text.text == '') {
-                  setState(() {
-                    myBoxList['beamsList']?[0]['qty'] = 0;
-                  });
-                }
-                setState(() {
-                  myBoxList['beamsList']?[0]['qty'] =
-                      2 * int.parse(boxBeam2Text.text);
-                });
-                setState(() {
-                  totalAmount = cartList
-                      .map((item) => item['price'] * item['qty'])
-                      .reduce((item1, item2) => item1 + item2);
-                });
-              }
+//               emptyBoxBeam();
+//               pillarTotalCost = 0;
+//               beamTotalCost = 0;
+//               boxPillarTotalCost = 0;
+//               boxBeam1TotalCost = 0;
 
-              if (!cartList.contains(myBoxList['beamsList']?[0])) {
-                cartList.add(myBoxList['beamsList']?[0]);
-                setState(() {
-                  myBoxList['beamsList']?[0]['qty'] =
-                      2 * int.parse(boxBeam2Text.text);
-                });
-                setState(() {
-                  totalAmount = cartList
-                      .map((item) => item['price'] * item['qty'])
-                      .reduce((item1, item2) => item1 + item2);
-                });
-              }
+// // 72 = 72/10 =.toInt = 7 and module will give 2
+
+//               var moudleFig = int.parse(boxBeam2Text.text) % 10;
+
+//               setState(() {
+//                 var quantity = (int.parse(boxBeam2Text.text) / 10).toInt();
+//                 int cost = pillarPriceList['10']; //
+
+//                 myBoxList['beamsList']?[0]['qty'] = quantity;
+//                 boxBeam1TotalCost = boxBeam1TotalCost + (quantity * cost);
+//               });
+
+//               setState(() {
+//                 int.parse((myBoxList['beamsList']?[0]['qty']).toString()) +
+//                     (int.parse(boxBeam2Text.text) / 10).toInt();
+//               });
+
+//               if (cartList.contains(myBoxList['beamsList']?[0])) {
+//                 setState(() {
+//                   int.parse((myBoxList['beamsList']?[0]['qty']).toString()) +
+//                       (int.parse(boxBeam2Text.text) / 10).toInt();
+//                 });
+//                 setState(() {
+//                   boxBeam1TotalCost = cartList
+//                       .map((item) => item['price'] * item['qty'])
+//                       .reduce((item1, item2) => item1 + item2);
+//                 });
+//               }
+//               if (!cartList.contains(myBoxList['beamsList']?[0])) {
+//                 cartList.add(myBoxList['beamsList']?[0]);
+//                 setState(() {
+//                   int.parse((myBoxList['beamsList']?[0]['qty']).toString()) +
+//                       (int.parse(boxBeam2Text.text) / 10).toInt();
+//                 });
+//                 setState(() {
+//                   boxBeam1TotalCost = cartList
+//                       .map((item) => item['price'] * item['qty'])
+//                       .reduce((item1, item2) => item1 + item2);
+//                 });
+//               }
+
+//               if (moudleFig == 0) {
+//                 var cost = variant_400_400['10'];
+//                 setState(() {
+//                   int.parse((myBoxList['beamsList']?[0]['qty']).toString()) +
+//                       (int.parse(boxBeam2Text.text) / 10).toInt();
+//                 });
+
+//                 if (cartList.contains(myBoxList['beamsList']?[0])) {
+//                   setState(() {
+//                     int.parse((myBoxList['beamsList']?[0]['qty']).toString()) +
+//                         (int.parse(boxBeam2Text.text) / 10).toInt();
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//                 if (!cartList.contains(myBoxList['beamsList']?[0])) {
+//                   cartList.add(myBoxList['beamsList']?[0]);
+//                   setState(() {
+//                     myBoxList['beamsList']?[0]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[0]['qty']).toString()) +
+//                         (int.parse(boxBeam2Text.text) / 10).toInt();
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//               } else if (moudleFig == 8) {
+//                 setState(() {
+//                   //  int cost = pillarPriceList['4'];
+//                   myBoxList['beamsList']?[3]['qty'] = int.parse(
+//                           (myBoxList['beamsList']?[3]['qty']).toString()) +
+//                       2;
+//                   // beamTotalCost = beamTotalCost + (2 * cost);
+//                 });
+
+//                 if (cartList.contains(myBoxList['beamsList']?[3])) {
+//                   setState(() {
+//                     myBoxList['beamsList']?[3]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[3]['qty']).toString()) +
+//                         2;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//                 if (!cartList.contains(myBoxList['beamsList']?[3])) {
+//                   cartList.add(myBoxList['beamsList']?[3]);
+//                   setState(() {
+//                     myBoxList['beamsList']?[3]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[3]['qty']).toString()) +
+//                         2;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//                 log('enterrrrrrrrrrrr');
+//               } else if (moudleFig == 7) {
+//                 setState(() {
+//                   myBoxList['beamsList']?[2]['qty'] = 1;
+//                   myBoxList['beamsList']?[4]['qty'] = 1;
+//                 });
+//               } else if (moudleFig == 6) {
+//                 setState(() {
+//                   myBoxList['beamsList']?[1]['qty'] = int.parse(
+//                           (myBoxList['beamsList']?[1]['qty']).toString()) +
+//                       1;
+//                 });
+
+//                 if (cartList.contains(myBoxList['beamsList']?[1])) {
+//                   setState(() {
+//                     myBoxList['beamsList']?[1]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[1]['qty']).toString()) +
+//                         1;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//                 if (!cartList.contains(myBoxList['beamsList']?[1])) {
+//                   cartList.add(myBoxList['beamsList']?[1]);
+//                   setState(() {
+//                     myBoxList['beamsList']?[1]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[1]['qty']).toString()) +
+//                         1;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//               } else if (moudleFig == 5) {
+//                 setState(() {
+//                   myBoxList['beamsList']?[2]['qty'] = int.parse(
+//                           (myBoxList['beamsList']?[2]['qty']).toString()) +
+//                       1;
+//                 });
+
+//                 if (cartList.contains(myBoxList['beamsList']?[2])) {
+//                   setState(() {
+//                     myBoxList['beamsList']?[2]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[2]['qty']).toString()) +
+//                         1;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//                 if (!cartList.contains(myBoxList['beamsList']?[2])) {
+//                   cartList.add(myBoxList['beamsList']?[2]);
+//                   setState(() {
+//                     myBoxList['beamsList']?[2]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[2]['qty']).toString()) +
+//                         1;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//               } else if (moudleFig == 4) {
+//                 setState(() {
+//                   myBoxList['beamsList']?[3]['qty'] = int.parse(
+//                           (myBoxList['beamsList']?[3]['qty']).toString()) +
+//                       1;
+//                 });
+//                 if (cartList.contains(myBoxList['beamsList']?[3])) {
+//                   setState(() {
+//                     myBoxList['beamsList']?[3]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[3]['qty']).toString()) +
+//                         1;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//                 if (!cartList.contains(myBoxList['beamsList']?[3])) {
+//                   cartList.add(myBoxList['beamsList']?[3]);
+//                   setState(() {
+//                     myBoxList['beamsList']?[3]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[3]['qty']).toString()) +
+//                         1;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//               } else if (moudleFig == 3) {
+//                 setState(() {
+//                   myBoxList['beamsList']?[4]['qty'] = 1;
+//                   myBoxList['beamsList']?[5]['qty'] = 1;
+//                 });
+//               } else if (moudleFig == 2) {
+//                 setState(() {
+//                   myBoxList['beamsList']?[4]['qty'] = int.parse(
+//                           (myBoxList['beamsList']?[4]['qty']).toString()) +
+//                       1;
+//                 });
+//                 if (cartList.contains(myBoxList['beamsList']?[4])) {
+//                   setState(() {
+//                     myBoxList['beamsList']?[4]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[4]['qty']).toString()) +
+//                         1;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//                 if (!cartList.contains(myBoxList['beamsList']?[4])) {
+//                   cartList.add(myBoxList['beamsList']?[4]);
+//                   setState(() {
+//                     myBoxList['beamsList']?[4]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[4]['qty']).toString()) +
+//                         1;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//               } else if (moudleFig == 1) {
+//                 setState(() {
+//                   myBoxList['beamsList']?[5]['qty'] = int.parse(
+//                           (myBoxList['beamsList']?[5]['qty']).toString()) +
+//                       1;
+//                   1;
+//                 });
+//                 if (cartList.contains(myBoxList['beamsList']?[5])) {
+//                   setState(() {
+//                     myBoxList['beamsList']?[5]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[5]['qty']).toString()) +
+//                         1;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//                 if (!cartList.contains(myBoxList['beamsList']?[5])) {
+//                   cartList.add(myBoxList['beamsList']?[5]);
+//                   setState(() {
+//                     myBoxList['beamsList']?[5]['qty'] = int.parse(
+//                             (myBoxList['beamsList']?[5]['qty']).toString()) +
+//                         1;
+//                   });
+//                   setState(() {
+//                     pillarTotalCost = 0;
+//                     beamTotalCost = 0;
+//                     boxPillarTotalCost = 0;
+//                     boxBeam1TotalCost = 0;
+
+//                     beamTotalCost = cartList
+//                         .map((item) => item['price'] * item['qty'])
+//                         .reduce((item1, item2) => item1 + item2);
+//                   });
+//                 }
+//               } else {
+//                 print(
+//                     'value of moduleFig ${moudleFig} ${(int.parse(boxBeam2Text.text) / 10).toInt()}');
+
+//                 setState(() {
+//                   myBoxList['beamsList']?[0]['qty'] =
+//                       (int.parse(boxBeam2Text.text) / 10).toInt();
+//                 });
+//               }
+
+//               log("Beam cost : $boxBeam1TotalCost");
             },
             decoration: InputDecoration(
               border: OutlineInputBorder(
