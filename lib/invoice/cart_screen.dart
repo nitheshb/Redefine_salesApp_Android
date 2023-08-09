@@ -1129,309 +1129,6 @@ class _CartScreenState extends State<CartScreen> {
         Expanded(
           child: TextFormField(
             keyboardType: TextInputType.number,
-            controller: goalPillarText,
-            onChanged: (value) {
-// reset values
-              emptyGoalPillar();
-              pillarTotalCost = 0;
-              beamTotalCost = 0;
-              boxPillarTotalCost = 0;
-              boxBeam1TotalCost = 0;
-
-// 72 = 72/10 =.toInt = 7 and module will give 2
-
-              var moudleFig = int.parse(goalPillarText.text) % 10;
-
-              setState(() {
-                var quantity = (int.parse(goalPillarText.text) / 10).toInt();
-                int cost = pillarPriceList['10']; //
-
-                myGoalList['pillarList']?[0]['qty'] = quantity;
-                pillarTotalCost = pillarTotalCost + (quantity * cost);
-              });
-
-              setState(() {
-                myGoalList['pillarList']?[0]['qty'] =
-                    (int.parse(goalPillarText.text) / 10).toInt();
-              });
-
-              if (cartList.contains(myGoalList['pillarList']?[0])) {
-                setState(() {
-                  myGoalList['pillarList']?[0]['qty'] =
-                      (int.parse(goalPillarText.text) / 10).toInt();
-                });
-                setState(() {
-                  pillarTotalCost = cartList
-                      .map((item) => item['price'] * item['qty'])
-                      .reduce((item1, item2) => item1 + item2);
-                });
-              }
-              if (!cartList.contains(myGoalList['pillarList']?[0])) {
-                cartList.add(myGoalList['pillarList']?[0]);
-                setState(() {
-                  myGoalList['pillarList']?[0]['qty'] =
-                      (int.parse(goalPillarText.text) / 10).toInt();
-                });
-                setState(() {
-                  pillarTotalCost = cartList
-                      .map((item) => item['price'] * item['qty'])
-                      .reduce((item1, item2) => item1 + item2);
-                });
-              }
-
-              if (moudleFig == 0) {
-                var cost = variant_400_400['10'];
-                setState(() {
-                  myGoalList['pillarList']?[0]['qty'] =
-                      (int.parse(goalPillarText.text) / 10).toInt();
-                });
-
-                if (cartList.contains(myGoalList['pillarList']?[0])) {
-                  setState(() {
-                    myGoalList['pillarList']?[0]['qty'] =
-                        (int.parse(goalPillarText.text) / 10).toInt();
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-                if (!cartList.contains(myGoalList['pillarList']?[0])) {
-                  cartList.add(myGoalList['pillarList']?[0]);
-                  setState(() {
-                    myGoalList['pillarList']?[0]['qty'] =
-                        (int.parse(goalPillarText.text) / 10).toInt();
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-
-                log(moudleFig.toString());
-              } else if (moudleFig == 8) {
-                setState(() {
-                  //  int cost = pillarPriceList['4'];
-                  myGoalList['pillarList']?[3]['qty'] = 2;
-                  // pillarTotalCost = pillarTotalCost + (2 * cost);
-                });
-
-                if (cartList.contains(myGoalList['pillarList']?[3])) {
-                  setState(() {
-                    myGoalList['pillarList']?[3]['qty'] = 2;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-                if (!cartList.contains(myGoalList['pillarList']?[3])) {
-                  cartList.add(myGoalList['pillarList']?[3]);
-                  setState(() {
-                    myGoalList['pillarList']?[3]['qty'] = 2;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-                log('enterrrrrrrrrrrr');
-              } else if (moudleFig == 7) {
-                setState(() {
-                  myGoalList['pillarList']?[2]['qty'] = 1;
-                  myGoalList['pillarList']?[4]['qty'] = 1;
-                });
-              } else if (moudleFig == 6) {
-                setState(() {
-                  myGoalList['pillarList']?[1]['qty'] = 1;
-                });
-
-                if (cartList.contains(myGoalList['pillarList']?[1])) {
-                  setState(() {
-                    myGoalList['pillarList']?[1]['qty'] = 1;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-                if (!cartList.contains(myGoalList['pillarList']?[1])) {
-                  cartList.add(myGoalList['pillarList']?[1]);
-                  setState(() {
-                    myGoalList['pillarList']?[1]['qty'] = 1;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-              } else if (moudleFig == 5) {
-                setState(() {
-                  myGoalList['pillarList']?[2]['qty'] = 1;
-                });
-
-                if (cartList.contains(myGoalList['pillarList']?[2])) {
-                  setState(() {
-                    myGoalList['pillarList']?[2]['qty'] = 1;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-                if (!cartList.contains(myGoalList['pillarList']?[2])) {
-                  cartList.add(myGoalList['pillarList']?[2]);
-                  setState(() {
-                    myGoalList['pillarList']?[2]['qty'] = 1;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-              } else if (moudleFig == 4) {
-                setState(() {
-                  myGoalList['pillarList']?[3]['qty'] = 1;
-                });
-                if (cartList.contains(myGoalList['pillarList']?[3])) {
-                  setState(() {
-                    myGoalList['pillarList']?[3]['qty'] = 1;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-                if (!cartList.contains(myGoalList['pillarList']?[3])) {
-                  cartList.add(myGoalList['pillarList']?[3]);
-                  setState(() {
-                    myGoalList['pillarList']?[3]['qty'] = 1;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-              } else if (moudleFig == 3) {
-                setState(() {
-                  myGoalList['pillarList']?[4]['qty'] = 1;
-                  myGoalList['pillarList']?[5]['qty'] = 1;
-                });
-              } else if (moudleFig == 2) {
-                setState(() {
-                  myGoalList['pillarList']?[4]['qty'] = 1;
-                });
-                if (cartList.contains(myGoalList['pillarList']?[4])) {
-                  setState(() {
-                    myGoalList['pillarList']?[4]['qty'] = 1;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-                if (!cartList.contains(myGoalList['pillarList']?[4])) {
-                  cartList.add(myGoalList['pillarList']?[4]);
-                  setState(() {
-                    myGoalList['pillarList']?[4]['qty'] = 1;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-              } else if (moudleFig == 1) {
-                setState(() {
-                  myGoalList['pillarList']?[5]['qty'] = 1;
-                });
-                if (cartList.contains(myGoalList['pillarList']?[5])) {
-                  setState(() {
-                    myGoalList['pillarList']?[5]['qty'] = 1;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-                if (!cartList.contains(myGoalList['pillarList']?[5])) {
-                  cartList.add(myGoalList['pillarList']?[5]);
-                  setState(() {
-                    myGoalList['pillarList']?[5]['qty'] = 1;
-                  });
-                  setState(() {
-                    pillarTotalCost = cartList
-                        .map((item) => item['price'] * item['qty'])
-                        .reduce((item1, item2) => item1 + item2);
-                  });
-                }
-              } else {
-                print(
-                    'value of moduleFig ${moudleFig} ${(int.parse(goalPillarText.text) / 10).toInt()}');
-
-                setState(() {
-                  myGoalList['pillarList']?[0]['qty'] =
-                      (int.parse(goalPillarText.text) / 10).toInt();
-                });
-              }
-
-              log("Pillar cost : $pillarTotalCost");
-            },
-            decoration: InputDecoration(
-              isDense: true, // important line
-              contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5.0),
-                borderSide: const BorderSide(color: Colors.grey),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5.0),
-                borderSide: const BorderSide(color: Colors.grey),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5.0),
-                borderSide: const BorderSide(color: Colors.grey),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5.0),
-                borderSide: const BorderSide(color: Colors.grey),
-              ),
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5.0),
-                borderSide: const BorderSide(color: Colors.grey),
-              ),
-              filled: true,
-            ),
-          ),
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.010,
-        ),
-        Text(
-          "X",
-          style: GoogleFonts.inter(
-              fontWeight: FontWeight.w600,
-              color: Colors.blue,
-              fontSize: MediaQuery.of(context).size.height * 0.020),
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.010,
-        ),
-        Expanded(
-          child: TextFormField(
-            keyboardType: TextInputType.number,
             controller: goalBeamText,
             onChanged: (value) {
 // reset values
@@ -1691,6 +1388,309 @@ class _CartScreenState extends State<CartScreen> {
               }
 
               log("Beam cost : $beamTotalCost");
+            },
+            decoration: InputDecoration(
+              isDense: true, // important line
+              contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+              filled: true,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.010,
+        ),
+        Text(
+          "X",
+          style: GoogleFonts.inter(
+              fontWeight: FontWeight.w600,
+              color: Colors.blue,
+              fontSize: MediaQuery.of(context).size.height * 0.020),
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.010,
+        ),
+        Expanded(
+          child: TextFormField(
+            keyboardType: TextInputType.number,
+            controller: goalPillarText,
+            onChanged: (value) {
+// reset values
+              emptyGoalPillar();
+              pillarTotalCost = 0;
+              beamTotalCost = 0;
+              boxPillarTotalCost = 0;
+              boxBeam1TotalCost = 0;
+
+// 72 = 72/10 =.toInt = 7 and module will give 2
+
+              var moudleFig = int.parse(goalPillarText.text) % 10;
+
+              setState(() {
+                var quantity = (int.parse(goalPillarText.text) / 10).toInt();
+                int cost = pillarPriceList['10']; //
+
+                myGoalList['pillarList']?[0]['qty'] = quantity;
+                pillarTotalCost = pillarTotalCost + (quantity * cost);
+              });
+
+              setState(() {
+                myGoalList['pillarList']?[0]['qty'] =
+                    (int.parse(goalPillarText.text) / 10).toInt();
+              });
+
+              if (cartList.contains(myGoalList['pillarList']?[0])) {
+                setState(() {
+                  myGoalList['pillarList']?[0]['qty'] =
+                      (int.parse(goalPillarText.text) / 10).toInt();
+                });
+                setState(() {
+                  pillarTotalCost = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+              if (!cartList.contains(myGoalList['pillarList']?[0])) {
+                cartList.add(myGoalList['pillarList']?[0]);
+                setState(() {
+                  myGoalList['pillarList']?[0]['qty'] =
+                      (int.parse(goalPillarText.text) / 10).toInt();
+                });
+                setState(() {
+                  pillarTotalCost = cartList
+                      .map((item) => item['price'] * item['qty'])
+                      .reduce((item1, item2) => item1 + item2);
+                });
+              }
+
+              if (moudleFig == 0) {
+                var cost = variant_400_400['10'];
+                setState(() {
+                  myGoalList['pillarList']?[0]['qty'] =
+                      (int.parse(goalPillarText.text) / 10).toInt();
+                });
+
+                if (cartList.contains(myGoalList['pillarList']?[0])) {
+                  setState(() {
+                    myGoalList['pillarList']?[0]['qty'] =
+                        (int.parse(goalPillarText.text) / 10).toInt();
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[0])) {
+                  cartList.add(myGoalList['pillarList']?[0]);
+                  setState(() {
+                    myGoalList['pillarList']?[0]['qty'] =
+                        (int.parse(goalPillarText.text) / 10).toInt();
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+
+                log(moudleFig.toString());
+              } else if (moudleFig == 8) {
+                setState(() {
+                  //  int cost = pillarPriceList['4'];
+                  myGoalList['pillarList']?[3]['qty'] = 2;
+                  // pillarTotalCost = pillarTotalCost + (2 * cost);
+                });
+
+                if (cartList.contains(myGoalList['pillarList']?[3])) {
+                  setState(() {
+                    myGoalList['pillarList']?[3]['qty'] = 2;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[3])) {
+                  cartList.add(myGoalList['pillarList']?[3]);
+                  setState(() {
+                    myGoalList['pillarList']?[3]['qty'] = 2;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                log('enterrrrrrrrrrrr');
+              } else if (moudleFig == 7) {
+                setState(() {
+                  myGoalList['pillarList']?[2]['qty'] = 1;
+                  myGoalList['pillarList']?[4]['qty'] = 1;
+                });
+              } else if (moudleFig == 6) {
+                setState(() {
+                  myGoalList['pillarList']?[1]['qty'] = 1;
+                });
+
+                if (cartList.contains(myGoalList['pillarList']?[1])) {
+                  setState(() {
+                    myGoalList['pillarList']?[1]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[1])) {
+                  cartList.add(myGoalList['pillarList']?[1]);
+                  setState(() {
+                    myGoalList['pillarList']?[1]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 5) {
+                setState(() {
+                  myGoalList['pillarList']?[2]['qty'] = 1;
+                });
+
+                if (cartList.contains(myGoalList['pillarList']?[2])) {
+                  setState(() {
+                    myGoalList['pillarList']?[2]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[2])) {
+                  cartList.add(myGoalList['pillarList']?[2]);
+                  setState(() {
+                    myGoalList['pillarList']?[2]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 4) {
+                setState(() {
+                  myGoalList['pillarList']?[3]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['pillarList']?[3])) {
+                  setState(() {
+                    myGoalList['pillarList']?[3]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[3])) {
+                  cartList.add(myGoalList['pillarList']?[3]);
+                  setState(() {
+                    myGoalList['pillarList']?[3]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 3) {
+                setState(() {
+                  myGoalList['pillarList']?[4]['qty'] = 1;
+                  myGoalList['pillarList']?[5]['qty'] = 1;
+                });
+              } else if (moudleFig == 2) {
+                setState(() {
+                  myGoalList['pillarList']?[4]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['pillarList']?[4])) {
+                  setState(() {
+                    myGoalList['pillarList']?[4]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[4])) {
+                  cartList.add(myGoalList['pillarList']?[4]);
+                  setState(() {
+                    myGoalList['pillarList']?[4]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else if (moudleFig == 1) {
+                setState(() {
+                  myGoalList['pillarList']?[5]['qty'] = 1;
+                });
+                if (cartList.contains(myGoalList['pillarList']?[5])) {
+                  setState(() {
+                    myGoalList['pillarList']?[5]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+                if (!cartList.contains(myGoalList['pillarList']?[5])) {
+                  cartList.add(myGoalList['pillarList']?[5]);
+                  setState(() {
+                    myGoalList['pillarList']?[5]['qty'] = 1;
+                  });
+                  setState(() {
+                    pillarTotalCost = cartList
+                        .map((item) => item['price'] * item['qty'])
+                        .reduce((item1, item2) => item1 + item2);
+                  });
+                }
+              } else {
+                print(
+                    'value of moduleFig ${moudleFig} ${(int.parse(goalPillarText.text) / 10).toInt()}');
+
+                setState(() {
+                  myGoalList['pillarList']?[0]['qty'] =
+                      (int.parse(goalPillarText.text) / 10).toInt();
+                });
+              }
+
+              log("Pillar cost : $pillarTotalCost");
             },
             decoration: InputDecoration(
               isDense: true, // important line
