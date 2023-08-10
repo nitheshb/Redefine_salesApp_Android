@@ -9,7 +9,7 @@ import 'package:pdf/widgets.dart';
 import 'package:redefine_sales_app/pdf/pdf_api.dart';
 
 class PdfInvoiceApi {
-  static Future<File> generate(Invoice invoice) async {
+  static Future<File> generate(Invoice invoice, String pdf_name) async {
     final pdf = Document();
 
     final imageByteData =
@@ -27,7 +27,7 @@ class PdfInvoiceApi {
       build: (context) => [
         buildHeader(invoice, image),
         buildInvoice(invoice),
-        builBankDetails(),
+        builBankDetails(invoice),
         buildTnC(),
         buidFinalBill()
         // buildTotal(invoice)
@@ -35,7 +35,7 @@ class PdfInvoiceApi {
       // footer: (context) => buildFooter(invoice),
     ));
 
-    return PdfApi.saveDocuments(name: 'my_invoice.pdf', pdf: pdf);
+    return PdfApi.saveDocuments(name: '${pdf_name}.pdf', pdf: pdf);
   }
 
   static Widget buidFinalBill() {
@@ -122,7 +122,14 @@ class PdfInvoiceApi {
     ]);
   }
 
-  static Widget builBankDetails() {
+  static Widget builBankDetails(Invoice invoice) {
+    final totalAmount = invoice.items
+        .map((item) => int.parse(item.price) * int.parse(item.qty))
+        .reduce((item1, item2) => item1 + item2);
+
+    final cgst = (9 / 100) * totalAmount;
+    final sgst = (9 / 100) * totalAmount;
+    final grandTotal = totalAmount + sgst + cgst;
     return Column(children: [
       SizedBox(height: 3 * PdfPageFormat.mm),
       Row(children: [
@@ -236,7 +243,7 @@ class PdfInvoiceApi {
               Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 1.5 * PdfPageFormat.mm),
-                child: Text("1,24,000.00",
+                child: Text(totalAmount.toStringAsFixed(2),
                     style: const TextStyle(fontSize: 3.4 * PdfPageFormat.mm)),
               ),
               SizedBox(height: 2.3 * PdfPageFormat.mm),
@@ -246,7 +253,7 @@ class PdfInvoiceApi {
                 padding: const EdgeInsets.symmetric(
                     vertical: 0.9 * PdfPageFormat.mm,
                     horizontal: 0.9 * PdfPageFormat.mm),
-                child: Text("11,160.00",
+                child: Text(cgst.toStringAsFixed(2),
                     style: const TextStyle(fontSize: 3.4 * PdfPageFormat.mm)),
               ),
               SizedBox(height: 0.7 * PdfPageFormat.mm),
@@ -256,7 +263,7 @@ class PdfInvoiceApi {
                 padding: const EdgeInsets.symmetric(
                     vertical: 0.9 * PdfPageFormat.mm,
                     horizontal: 0.9 * PdfPageFormat.mm),
-                child: Text("11,160.00",
+                child: Text(sgst.toStringAsFixed(2),
                     style: const TextStyle(fontSize: 3.4 * PdfPageFormat.mm)),
               ),
               SizedBox(height: 0.7 * PdfPageFormat.mm),
@@ -266,7 +273,7 @@ class PdfInvoiceApi {
                 padding: const EdgeInsets.symmetric(
                     vertical: 1 * PdfPageFormat.mm,
                     horizontal: 0.9 * PdfPageFormat.mm),
-                child: Text("1,46,320.00",
+                child: Text(grandTotal.toStringAsFixed(2),
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 3.4 * PdfPageFormat.mm)),
@@ -731,6 +738,7 @@ class PdfInvoiceApi {
 
     final data = invoice.items.map((item) {
       final total = int.parse(item.price) * int.parse(item.qty);
+      final amount = (total) + ((18 / 100) * total);
       return [
         i++,
         "${item.description} ${item.name}",
@@ -738,10 +746,10 @@ class PdfInvoiceApi {
         item.qty,
         'no.s ',
         (item.price),
-        '66,000.00',
+        (item.price),
         '9.00%',
         '9.00%',
-        (total.toStringAsFixed(2))
+        (amount.toStringAsFixed(2))
       ];
     }).toList();
     return Table.fromTextArray(

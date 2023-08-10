@@ -40,11 +40,11 @@ class ItemCard extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     children: [
-                      const TextSpan(
-                        text: 'Name : ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, color: Colors.black),
-                      ),
+                      // const TextSpan(
+                      //   text: 'Name : ',
+                      //   style: TextStyle(
+                      //       fontWeight: FontWeight.w700, color: Colors.black),
+                      // ),
                       TextSpan(
                         text: itemName,
                         style: const TextStyle(
@@ -55,7 +55,7 @@ class ItemCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.020,
+                  height: MediaQuery.of(context).size.height * 0.005,
                 ),
                 RichText(
                     text: TextSpan(

@@ -199,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       physics: const ScrollPhysics(),
                       children: snapshot.data!.docs.map((document) {
                         return Padding(
-                          padding: const EdgeInsets.all(12.0),
+                          padding: const EdgeInsets.all(2.0),
                           child: GestureDetector(
                             onTap: () {
                               _setdata(int.parse(document['Mobile']));
@@ -217,8 +217,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                                       ));
                             },
                             child: Material(
-                                elevation: 30,
-                                borderRadius: BorderRadius.circular(10),
+                                elevation: 6,
+                                borderRadius: BorderRadius.circular(6),
                                 child: Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: Column(
